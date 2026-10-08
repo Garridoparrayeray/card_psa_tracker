@@ -1389,6 +1389,7 @@ function finishFollow(c) {
   var el;
   viewed.splice(viewed.indexOf(c), 1);
   c.tracked = [9, 10];
+  if (c.prevTracked && c.prevTracked.length > 0) { c.tracked = c.prevTracked; }
   c.delta = {};
   cards.push(c);
   state.packing = false;
@@ -2111,6 +2112,7 @@ document.addEventListener('click', function (e) {
     c = byId(state.card);
     if (isFollowed(c)) {
       cards.splice(cards.indexOf(c), 1);
+      c.prevTracked = c.tracked.slice();
       c.tracked = [];
       c.delta = {};
       viewed.push(c);
