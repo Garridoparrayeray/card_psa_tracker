@@ -1638,9 +1638,10 @@ if (q === 'price') { state.tab = 'price'; }
 if (q === 'set') { state.tab = 'set'; }
 
 var gateMark = '<span class="top-lens" style="width:56px;height:56px;border-width:4px"></span>';
-var keys = [
-  { n: 'Móvil de Yeray', k: 'slb_live_••••a3f9', c: '3 oct', u: 'hace 2 h', ok: true },
-  { n: 'Aplicación de Windows', k: 'slb_live_••••71bc', c: '28 sep', u: 'hace 5 días', ok: true }
+var devices = [
+  { n: 'Este navegador · Chrome en Windows', d: 'ahora mismo', cur: true, ok: true },
+  { n: 'Móvil Android · Pixel 8', d: 'hace 2 h', cur: false, ok: true },
+  { n: 'Aplicación de Windows', d: 'hace 5 días', cur: false, ok: true }
 ];
 var psaKeys = [
   { n: 'Mi cuenta de PSA', k: '••••9f2a', u: 38 },
@@ -1663,11 +1664,11 @@ state.gate = false;
 state.gtab = 'in';
 function gateHtml() {
   var up = state.gtab === 'up';
-  var h = '<div class="auth-screen"><div class="auth-box"><div class="auth-logo">' + gateMark + '</div><h1 class="page-title">' + pick(up, 'Crea tu cuenta', 'Entra en tu cuenta') + '</h1><p class="subtitle">Cada cuenta tiene su propio historial y sus propias claves.</p>';
+  var h = '<div class="auth-screen"><div class="auth-box"><div class="auth-logo">' + gateMark + '</div><h1 class="page-title">' + pick(up, 'Crea tu cuenta', 'Entra en tu cuenta') + '</h1><p class="subtitle">Cada cuenta tiene su propio historial y sus propias claves de PSA.</p>';
   h += '<div class="tab-switch"><button data-gtab="in" class="' + pick(!up, 'on', '') + '">Entrar</button><button data-gtab="up" class="' + pick(up, 'on', '') + '">Crear cuenta</button></div>';
   h += '<label>Correo</label><input class="field" type="email" placeholder="tu@correo.com"><label>Contraseña</label><input class="field" type="password" placeholder="Mínimo 10 caracteres">';
   if (up) { h += '<label>Tu clave de la API de PSA <em>(opcional)</em></label><input class="field" placeholder="Pega aquí tu token de PSA"><p class="mnote" style="font-size:.74rem;color:var(--text-secondary);margin:6px 0 0">Con tu propia clave tienes tus 100 consultas diarias, sin repartirlas con nadie.</p>'; }
-  h += '<button class="btn pri full" data-gate="1">' + pick(up, 'Crear cuenta', 'Entrar') + '</button><p class="footnote">Puedes revocar tus claves y cerrar sesiones desde Configuración, en Acceso y claves.</p></div></div>';
+  h += '<button class="btn pri full" data-gate="1">' + pick(up, 'Crear cuenta', 'Entrar') + '</button><p class="footnote">Puedes cerrar sesión en tus dispositivos desde Configuración.</p></div></div>';
   return h;
 }
 function keysHtml() {
@@ -1679,25 +1680,24 @@ function keysHtml() {
     h += '<div class="key-row"><div><b>' + psaKeys[i].n + '</b><br><code>' + psaKeys[i].k + '</code><small>Guardada cifrada · ' + psaKeys[i].u + ' de 100 consultas hoy</small></div><button class="revoke" data-psadel="' + i + '">Quitar</button></div>';
   }
   h += '<button class="btn full" data-sheet="psakey">+ Añadir clave de PSA</button>';
-  h += '<h3 class="keys-title">Tus aplicaciones y dispositivos</h3><p class="keys-note">Cada aplicación que se conecta a tu cuenta, como el móvil o Windows, usa su propia clave. Si pierdes un dispositivo, revoca su clave y el resto sigue funcionando.</p>';
-  for (i = 0; i < keys.length; i++) {
-    k = keys[i];
-    h += '<div class="key-row"><div><b>' + k.n + '</b><br><code>' + k.k + '</code><small>Creada el ' + k.c + ' · usada ' + k.u + '</small></div>';
-    if (k.ok) { h += '<button class="revoke" data-revoke="' + i + '">Revocar</button>'; } else { h += '<span class="revoked-text">Revocada</span>'; }
+  h += '<h3 class="keys-title">Dispositivos conectados</h3><p class="keys-note">Los sitios donde has iniciado sesión. Si pierdes uno, ciérrale la sesión desde aquí y el resto sigue conectado.</p>';
+  for (i = 0; i < devices.length; i++) {
+    k = devices[i];
+    h += '<div class="key-row"><div><b>' + k.n + '</b><small>Último uso: ' + k.d + '</small></div>';
+    if (k.cur) { h += '<span class="revoked-text">Este dispositivo</span>'; }
+    if (!k.cur && k.ok) { h += '<button class="revoke" data-devout="' + i + '">Cerrar sesión</button>'; }
+    if (!k.cur && !k.ok) { h += '<span class="revoked-text">Sesión cerrada</span>'; }
     h += '</div>';
   }
-  h += '<button class="btn full" data-sheet="newkey">+ Conectar un dispositivo</button><button class="btn full danger" data-allout="1">Cerrar todas las sesiones y revocar todo</button></div>';
+  h += '<button class="btn full danger" data-allout="1">Cerrar todas las sesiones y revocar todo</button></div>';
   return h;
 }
 function vSetWithKeys() {
-  return vSetBasic() + '<h2 style="margin-top:22px">Acceso y claves</h2>' + keysHtml();
+  return vSetBasic() + '<h2 style="margin-top:22px">Claves de PSA y dispositivos</h2>' + keysHtml();
 }
 function drawSheets() {
   var l = document.getElementById('layer');
   var h = '';
-  if (state.sheet === 'newkey') {
-    h += '<div class="backdrop" data-close="1"></div><div class="sheet"><div class="sheet-handle"></div><h3>Clave nueva</h3><p>Cópiala ahora. Después solo verás los últimos cuatro caracteres.</p><div class="keybox">slb_live_9f3a7c21e0b84d6a95c1</div><button class="btn pri full" data-close="1">Ya la he copiado</button></div>';
-  }
   if (state.sheet === 'psakey') {
     h += '<div class="backdrop" data-close="1"></div><div class="sheet"><div class="sheet-handle"></div><h3>Añadir clave de PSA</h3><p>Pega el token de la API de PSA: puede ser de otra cuenta gratuita tuya o de un amigo que te lo preste. Se guarda cifrado.</p><input class="field" id="psaname" placeholder="Nombre, por ejemplo Cuenta de mi hermano" autocomplete="off" value="' + esc(state.pname) + '"><input class="field" id="psanew" placeholder="Pega aquí el token de PSA" autocomplete="off" spellcheck="false">';
     if (state.perr !== '') { h += '<p class="sheet-error">' + state.perr + '</p>'; }
@@ -1710,14 +1710,14 @@ function drawSheets() {
   l.innerHTML += h;
 }
 document.addEventListener('click', function (e) {
-  var t = e.target.closest('[data-gate],[data-gtab],[data-revoke],[data-allout]');
+  var t = e.target.closest('[data-gate],[data-gtab],[data-devout],[data-allout]');
   var i;
   if (!t) { return; }
   if (t.dataset.gate) { state.gate = (t.dataset.gate === 'out'); render(false); return; }
   if (t.dataset.gtab) { state.gtab = t.dataset.gtab; render(false); return; }
-  if (t.dataset.revoke) { keys[parseInt(t.dataset.revoke, 10)].ok = false; render(false); return; }
+  if (t.dataset.devout) { devices[parseInt(t.dataset.devout, 10)].ok = false; render(false); return; }
   if (t.dataset.allout) {
-    for (i = 0; i < keys.length; i++) { keys[i].ok = false; }
+    for (i = 0; i < devices.length; i++) { devices[i].ok = false; }
     state.gate = true;
     render(false);
   }
@@ -2349,17 +2349,16 @@ function admUsuarios() {
       u = admUsers[i];
       rows.push([u.c, u.r, pillOf(u.e), u.u, u.q + ' / 100', u.k, u.d]);
     }
-    return h + tabla(['Correo', 'Rol', 'Estado', 'Última entrada', 'Consultas hoy', 'Claves', 'Dispositivos'], rows, true);
+    return h + tabla(['Correo', 'Rol', 'Estado', 'Última entrada', 'Consultas hoy', 'Claves de PSA', 'Dispositivos'], rows, true);
   }
   u = admUsers[state.admUser];
   h = '<button class="btn" data-adm-back="1" style="margin-bottom:16px">← Volver a usuarios</button><div class="adm-row"><div class="adm-col">';
   h += '<div class="box"><h2>' + u.c + '</h2><p class="mini">Rol ' + u.r + ' · estado ' + u.e + ' · alta el 12 jul · última entrada ' + u.u + '</p><div class="adm-actions"><button class="btn">Suspender</button><button class="btn">Cambiar rol</button><button class="btn">Cerrar sesiones</button><button class="btn">Borrar clave de PSA</button><button class="btn danger" data-adm-revoke="1">Revocar cuenta completa</button></div></div>';
-  h += '<div class="box"><h2>Credencial de PSA</h2><p class="mini">••••••••9f2a · guardada cifrada · ' + u.q + ' de 100 consultas hoy · estado ok</p></div>';
-  h += '<div class="box"><h2>Claves de API (' + u.k + ')</h2><p class="mini">Móvil de Yeray · slb_live_••••a3f9 · usada hace 2 h<br>Script del ordenador · slb_live_••••71bc · usada hace 5 días</p></div></div><div class="adm-col">';
+  h += '<div class="box"><h2>Claves de PSA (' + u.k + ')</h2><p class="mini">Mi cuenta de PSA · ••••9f2a · ' + u.q + ' de 100 consultas hoy · estado ok<br>Cuenta de reserva · ••••41cd · 12 de 100 consultas hoy · estado ok</p></div></div><div class="adm-col">';
   h += '<div class="box"><h2>Sesiones y dispositivos (' + u.d + ')</h2><p class="mini">Android · Pixel 8 · hoy 23:41<br>Windows · Edge · hoy 21:10</p></div>';
-  h += '<div class="box"><h2>Auditoría de esta cuenta</h2><p class="mini">hoy 23:41 · entrar · IP 83.45.x.x<br>hoy 21:10 · guardar clave de PSA · ••••9f2a<br>6 oct · crear regla · PSA 7-10<br>3 oct · crear clave · Móvil de Yeray</p></div></div></div>';
+  h += '<div class="box"><h2>Auditoría de esta cuenta</h2><p class="mini">hoy 23:41 · entrar · IP 83.45.x.x<br>hoy 21:10 · guardar clave de PSA · ••••9f2a<br>6 oct · crear regla · PSA 7-10<br>3 oct · iniciar sesión · Android</p></div></div></div>';
   if (state.revoke) {
-    h += '<div class="backdrop" data-adm-revoke-no="1"></div><div class="sheet"><h3>Revocar la cuenta completa</h3><p>' + u.c + '</p><ul class="fx"><li>Cierra todas las sesiones al instante.</li><li>Revoca todas las claves de API y los dispositivos.</li><li>Borra la clave de PSA y las demás credenciales. No se recuperan.</li><li>Descarta los avisos sin entregar.</li><li>Queda anotado en la auditoría con tu nombre y el motivo.</li></ul><input class="field" placeholder="Motivo (obligatorio)"><button class="btn pri full" data-adm-revoke-no="1">Revocar cuenta</button><button class="btn full" data-adm-revoke-no="1">Cancelar</button></div>';
+    h += '<div class="backdrop" data-adm-revoke-no="1"></div><div class="sheet"><h3>Revocar la cuenta completa</h3><p>' + u.c + '</p><ul class="fx"><li>Cierra todas las sesiones al instante.</li><li>Desconecta todos los dispositivos.</li><li>Borra la clave de PSA y las demás credenciales. No se recuperan.</li><li>Descarta los avisos sin entregar.</li><li>Queda anotado en la auditoría con tu nombre y el motivo.</li></ul><input class="field" placeholder="Motivo (obligatorio)"><button class="btn pri full" data-adm-revoke-no="1">Revocar cuenta</button><button class="btn full" data-adm-revoke-no="1">Cancelar</button></div>';
   }
   return h;
 }
@@ -2430,7 +2429,7 @@ function cardMini(c, extra) {
   return '<div class="result-summary"><div class="thumb" ' + cs(c) + '><i></i></div><div><b>' + c.name + '</b><span class="mini">' + c.set + extra + '</span></div></div>';
 }
 var xPages = {
-  crear: function () { return '<h1 class="page-title">Crea tu cuenta</h1><p class="subtitle">Cada cuenta tiene su propio historial y sus propias claves.</p><div class="tab-switch"><button data-xgo="login">Entrar</button><button class="on">Crear cuenta</button></div><label>Correo</label><input class="field" placeholder="tu@correo.com"><label>Contraseña</label><input class="field" type="password" placeholder="Mínimo 10 caracteres"><label>Tu clave de la API de PSA <em>(opcional)</em></label><input class="field" placeholder="Pega aquí tu token de PSA"><p class="mini">Con tu propia clave tienes tus 100 consultas diarias. Se guarda cifrada y puedes borrarla cuando quieras.</p><button class="btn pri full">Crear cuenta</button><p class="footnote">Te enviaremos un correo para verificar la cuenta.</p>'; },
+  crear: function () { return '<h1 class="page-title">Crea tu cuenta</h1><p class="subtitle">Cada cuenta tiene su propio historial y sus propias claves de PSA.</p><div class="tab-switch"><button data-xgo="login">Entrar</button><button class="on">Crear cuenta</button></div><label>Correo</label><input class="field" placeholder="tu@correo.com"><label>Contraseña</label><input class="field" type="password" placeholder="Mínimo 10 caracteres"><label>Tu clave de la API de PSA <em>(opcional)</em></label><input class="field" placeholder="Pega aquí tu token de PSA"><p class="mini">Con tu propia clave tienes tus 100 consultas diarias. Se guarda cifrada y puedes borrarla cuando quieras.</p><button class="btn pri full">Crear cuenta</button><p class="footnote">Te enviaremos un correo para verificar la cuenta.</p>'; },
   verificar: function () { return '<h1 class="page-title">Verifica tu correo</h1><p class="subtitle">Hemos enviado un enlace a yeray@correo.com. Ábrelo para activar la cuenta.</p><button class="btn pri full">Ya lo he abierto</button><button class="btn full">Reenviar el correo</button><p class="footnote">El enlace caduca en 24 horas.</p>'; },
   recuperar1: function () { return '<h1 class="page-title">Recuperar contraseña</h1><p class="subtitle">Escribe tu correo y te enviaremos un enlace.</p><label>Correo</label><input class="field" placeholder="tu@correo.com"><button class="btn pri full">Enviar enlace</button><button class="btn full">Volver</button>'; },
   recuperar2: function () { return '<h1 class="page-title">Revisa tu correo</h1><p class="subtitle">Si existe una cuenta con ese correo, te hemos enviado un enlace para cambiar la contraseña. Caduca en una hora.</p><button class="btn pri full">Volver a entrar</button>'; },
@@ -2449,9 +2448,8 @@ var xDialogs = {
   paso2cupo: function () { return dlg('<h3>Cupo diario agotado</h3><p>Has usado todas las consultas de hoy de tus claves de PSA. Puedes añadirla mañana o añadir otra clave de PSA para tener más.</p>' + btns('Añadir otra clave de PSA', 'Cerrar', false)); },
   seguir: function () { return dlg('<h3>¿Dejar de seguir Blaziken Holo?</h3><p>Dejarás de recibir avisos de esta carta. El historial guardado se conserva.</p>' + btns('Dejar de seguir', 'Cancelar', true)); },
   psa: function () { return dlg('<h3>¿Quitar tu clave de PSA?</h3><p>Se borra de nuestros servidores y no se puede recuperar. Mientras no tengas clave usarás el cupo compartido, más lento.</p>' + btns('Quitar la clave', 'Cancelar', true)); },
-  clave: function () { return dlg('<h3>¿Revocar «Móvil de Yeray»?</h3><p>La clave dejará de funcionar al instante en todos los sitios donde la uses.</p>' + btns('Revocar clave', 'Cancelar', true)); },
-  nueva: function () { return dlg('<h3>Clave nueva</h3><p>Cópiala ahora. Después solo verás los últimos cuatro caracteres.</p><div class="keybox2">pop_live_9f3a7c21e0b84d6a95c1</div><button class="btn full">Copiar</button><button class="btn pri full" data-xclose="1">Ya la he copiado</button>'); },
-  todo: function () { return dlg('<h3>Cerrar todo y revocar</h3><ul class="fx"><li>Se cierran todas tus sesiones.</li><li>Se revocan todas tus claves de API y tus dispositivos.</li><li>Se borra tu clave de PSA.</li></ul>' + btns('Cerrar todo y revocar', 'Cancelar', true)); },
+  clave: function () { return dlg('<h3>¿Cerrar la sesión en «Móvil Android»?</h3><p>Ese dispositivo tendrá que volver a iniciar sesión con tu correo y tu contraseña.</p>' + btns('Cerrar sesión', 'Cancelar', true)); },
+  todo: function () { return dlg('<h3>Cerrar todo y revocar</h3><ul class="fx"><li>Se cierran todas tus sesiones.</li><li>Se desconectan todos tus dispositivos.</li><li>Se borra tu clave de PSA.</li></ul>' + btns('Cerrar todo y revocar', 'Cancelar', true)); },
   eliminar: function () { return dlg('<h3>Eliminar mi cuenta</h3><p>Se borran tu cuenta, tus carteras, tus reglas y tus avisos. El catálogo compartido no se toca. No se puede deshacer.</p><input class="field" type="password" placeholder="Tu contraseña"><button class="btn full danger" data-xclose="1">Eliminar mi cuenta</button><button class="btn full" data-xclose="1">Cancelar</button>'); }
 };
 function xVisor() {
