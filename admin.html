@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex">
 <meta charset="utf-8">
 <meta name="color-scheme" content="light dark">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Diseño · Administración</title>
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="fonts/lilita.css">
@@ -278,6 +278,8 @@ tbody tr.tot td { font-weight: 800; }
 @keyframes follow-pulse { 0%, 100% { box-shadow: 0 4px 14px rgba(0, 0, 0, .3), 0 0 0 0 rgba(255, 255, 255, .55); } 50% { box-shadow: 0 4px 14px rgba(0, 0, 0, .3), 0 0 0 9px rgba(255, 255, 255, 0); } }
 @media (prefers-reduced-motion: reduce) { .hero-follow { animation: none; } }
 .unfollow-btn { margin-top: 12px; height: 52px; font-size: 1rem; }
+html { touch-action: manipulation; }
+@media (max-width: 719px) { input, select, textarea { font-size: 16px !important; } }
 input, select, textarea { color: var(--text); }
 input::placeholder, textarea::placeholder { color: var(--text-secondary); opacity: 1; }
 .sheet-error { color: var(--alert); font-weight: 700; margin: 8px 0 0; }
@@ -2706,6 +2708,9 @@ function drawNav() {
   ind.style.transform = 'translate(' + x + 'px,' + y + 'px)';
   navPrev = { x: x, y: y, w: w, h: h };
 }
+['gesturestart', 'gesturechange', 'gestureend'].forEach(function (name) {
+  document.addEventListener(name, function (e) { e.preventDefault(); });
+});
 var lastWidth = window.innerWidth;
 window.addEventListener('resize', function () {
   if (window.innerWidth === lastWidth) { return; }
