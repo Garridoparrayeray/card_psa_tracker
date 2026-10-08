@@ -257,6 +257,20 @@ tbody tr.tot td { font-weight: 800; }
 .set .line { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 54px; border-top: 1px solid var(--border); font-size: .95rem; }
 .set .line:first-child { border: 0; }
 .history-filter { margin-bottom: 14px; }
+.hist-switch { margin: 0 0 14px; max-width: 360px; }
+.look-list { display: flex; flex-direction: column; gap: 10px; }
+.look-row { display: flex; align-items: center; gap: 8px; }
+.look-row .change-card { flex: 1; min-width: 0; }
+.look-del { flex: none; width: 36px; height: 36px; border-radius: 50%; font-size: 22px; line-height: 1; color: var(--text-secondary); }
+.look-clear { margin-top: 6px; }
+.look-row .status-pill { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: .7rem; font-weight: 700; white-space: nowrap; }
+.look-row .status-pill.ok { background: rgba(46, 160, 90, .16); color: #1f7a43; }
+.look-row .status-pill.warn { background: rgba(240, 140, 0, .16); color: #a35c00; }
+.view-banner { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0; padding: 12px 14px; border-radius: 8px; background: var(--primary-tint); border: 1px solid var(--primary); }
+.view-banner span { flex: 1; min-width: 180px; }
+.view-banner small { display: block; font-size: .78rem; font-weight: 500; color: var(--text-secondary); }
+.sheet-error { color: var(--alert); font-weight: 700; margin: 8px 0 0; }
+.sheet .look-list { margin-top: 12px; }
 
 .sheet .field { width: 100%; height: 52px; border: 1px solid var(--border); border-radius: 6px; padding: 0 14px; font: inherit; font-size: 1.1rem; margin-top: 10px; background: var(--bg); }
 
@@ -890,7 +904,7 @@ var cards = [
       { n: 'Inglés', pop: [4, 9, 20, 41, 86, 150, 290, 410, 520, 190] },
       { n: 'Francés', pop: [1, 2, 5, 9, 20, 34, 61, 90, 110, 30] }
     ] },
-  { id: 'umb', name: 'Umbreon VMAX', set: 'Evolving Skies · 215/203', c1: '#3a4a8f', c2: '#0b0f26', price: 540, pct: 2.6, trend: [500, 510, 520, 526, 530, 536, 540], tracked: [9, 10], delta: { 9: -1 },
+  { id: 'umb', name: 'Umbreon VMAX', set: 'Evolving Skies · 215/203', c1: '#3a4a8f', c2: '#0b0f26', price: 540, pct: 2.6, trend: [500, 510, 520, 526, 530, 536, 540], tracked: [9, 10], delta: { 9: 1 },
     versions: [
       { n: 'Inglés', pop: [0, 0, 1, 2, 4, 12, 60, 340, 1210, 880] },
       { n: 'Japonés', pop: [0, 0, 0, 0, 1, 3, 18, 120, 410, 240] }
@@ -901,8 +915,34 @@ var cards = [
       { n: 'Alemán', pop: [0, 1, 2, 3, 8, 14, 26, 41, 30, 4] }
     ] }
 ];
+var viewed = [
+  { id: 'ven', name: 'Venusaur Holo', set: 'Base Set · 15/102', c1: '#5cae5a', c2: '#1f4d2b', price: 260, pct: 0.8, trend: [250, 252, 255, 254, 257, 259, 260], tracked: [], delta: {},
+    versions: [
+      { n: 'Inglés', pop: [3, 6, 14, 30, 62, 110, 190, 280, 310, 120] },
+      { n: 'Francés', pop: [0, 1, 3, 7, 15, 28, 52, 70, 80, 21] }
+    ] },
+  { id: 'mtw', name: 'Mewtwo Holo', set: 'Base Set · 10/102', c1: '#a58ad8', c2: '#33205e', price: 95, pct: 1.9, trend: [88, 89, 90, 92, 93, 94, 95], tracked: [], delta: {},
+    versions: [
+      { n: 'Inglés', pop: [2, 5, 12, 26, 55, 98, 170, 240, 270, 96] },
+      { n: 'Alemán', pop: [0, 1, 2, 5, 11, 20, 39, 58, 64, 17] }
+    ] },
+  { id: 'gen', name: 'Gengar Holo', set: 'Fossil · 5/62', c1: '#7c4fa0', c2: '#25123d', price: 120, pct: -0.6, trend: [124, 123, 122, 122, 121, 121, 120], tracked: [], delta: {},
+    versions: [
+      { n: 'Inglés', pop: [1, 3, 9, 18, 40, 77, 140, 190, 205, 64] },
+      { n: 'Japonés', pop: [0, 0, 1, 3, 7, 15, 31, 55, 70, 33] }
+    ] }
+];
+var lookups = [
+  { c: 'ven', cert: '62158304', d: new Date(2026, 9, 7, 18, 40) },
+  { c: 'mtw', cert: '59417720', d: new Date(2026, 9, 7, 9, 12) },
+  { c: 'gen', cert: '60873315', d: new Date(2026, 9, 4, 21, 3) },
+  { c: 'ven', cert: '62158304', d: new Date(2026, 9, 1, 12, 30) },
+  { c: 'mtw', cert: '59417720', d: new Date(2026, 8, 22, 17, 45) },
+  { c: 'gen', cert: '60873315', d: new Date(2026, 8, 5, 10, 20) },
+  { c: 'ven', cert: '62158304', d: new Date(2026, 7, 18, 20, 8) }
+];
 var events = [
-  { c: 'umb', g: 9, from: 1620, to: 1619, v: 'Inglés', t: 'hace 5 h' },
+  { c: 'umb', g: 9, from: 1620, to: 1621, v: 'Inglés', t: 'hace 5 h' },
   { c: 'blz', g: 9, from: 200, to: 202, v: 'Inglés', t: 'hace 2 h' },
   { c: 'chz', g: 2, from: 9, to: 10, v: 'Inglés', t: 'ayer' },
   { c: 'lug', g: 3, from: 3, to: 4, v: 'Alemán', t: 'ayer' }
@@ -964,6 +1004,9 @@ function dex(card) {
   for (i = 0; i < cards.length; i++) {
     if (cards[i].id === card.id) { return ('00' + (i + 1)).slice(-3); }
   }
+  for (i = 0; i < viewed.length; i++) {
+    if (viewed[i].id === card.id) { return ('00' + (cards.length + i + 1)).slice(-3); }
+  }
   return '000';
 }
 function animateTheme(v) {
@@ -981,7 +1024,13 @@ function byId(id) {
   for (i = 0; i < cards.length; i++) {
     if (cards[i].id === id) { return cards[i]; }
   }
+  for (i = 0; i < viewed.length; i++) {
+    if (viewed[i].id === id) { return viewed[i]; }
+  }
   return cards[0];
+}
+function isFollowed(c) {
+  return cards.indexOf(c) >= 0;
 }
 function rangeText(list) {
   var s = list.slice().sort(function (a, b) { return a - b; });
@@ -1011,6 +1060,7 @@ function popSel(card) {
   return total(card);
 }
 function sortedTracked(card) {
+  if (!isFollowed(card)) { return [10, 9, 8]; }
   return card.tracked.slice().sort(function (a, b) { return b - a; });
 }
 function cs(card) {
@@ -1153,6 +1203,18 @@ function editorHtml(c, withDone) {
   if (withDone) { h += '<button class="btn pri full" data-close="1">Listo</button>'; }
   return h;
 }
+function followBanner(c) {
+  if (isFollowed(c)) { return ''; }
+  return '<div class="view-banner"><span><b>Solo la estás mirando</b><small>No está en tu seguimiento y no recibirás avisos de ella.</small></span><button class="btn pri" data-follow="1">Añadir a seguimiento</button></div>';
+}
+function editorBox(c) {
+  if (isFollowed(c)) { return '<div class="box grades-editor"><h2>Grados que vigilo</h2>' + editorHtml(c, false) + '</div>'; }
+  return '<div class="box grades-editor"><h2>Seguimiento</h2><p class="mini">Añádela para vigilar sus grados y recibir avisos cuando suba el número de cartas.</p><button class="btn pri full" data-follow="1">Añadir a seguimiento</button></div>';
+}
+function actionsHtml(c) {
+  if (isFollowed(c)) { return '<div class="detail-actions"><button class="detail-action" data-sheet="grades"><span><small>Grados que vigilo</small><b>PSA ' + rangeText(c.tracked) + '</b></span><span>Cambiar</span></button></div>'; }
+  return '<div class="detail-actions"><button class="detail-action" data-follow="1"><span><small>Seguimiento</small><b>Sin seguir</b></span><span>Añadir</span></button></div>';
+}
 function vDetailBasic() {
   var c = byId(state.card);
   var pop = popSel(c);
@@ -1166,7 +1228,7 @@ function vDetailBasic() {
   var on;
   var d;
   h += '<div class="detail-body"><div class="card-title"><span class="no">Nº ' + dex(c) + '</span>' + c.name + '<small>' + c.set + '</small></div></div></div>';
-  h += '<div class="detail-body"><div><h2>Tus grados · ' + pick(state.ver === -1, 'todas las versiones', c.versions[Math.max(state.ver, 0)].n) + '</h2><div class="grade-grid">';
+  h += '<div class="detail-body">' + followBanner(c) + '<div><h2>' + pick(isFollowed(c), 'Tus grados', 'Grados de referencia') + ' · ' + pick(state.ver === -1, 'todas las versiones', c.versions[Math.max(state.ver, 0)].n) + '</h2><div class="grade-grid">';
   for (i = 0; i < gs.length; i++) {
     g = gs[i];
     d = c.delta[g];
@@ -1189,8 +1251,8 @@ function vDetailBasic() {
     on = c.tracked.indexOf(g) >= 0;
     h += '<div class="grade-bar ' + pick(on, 'on', '') + '"><span>PSA ' + g + '</span><div class="bar-track"><div class="bar-fill" style="width:' + (pop[g - 1] / (max || 1) * 100) + '%"></div></div><em>' + pop[g - 1] + '</em></div>';
   }
-  h += '</div></div>' + priceBox(c) + '<div class="box grades-editor"><h2>Grados que vigilo</h2>' + editorHtml(c, false) + '</div></div></div></div>';
-  h += '<div class="detail-actions"><button class="detail-action" data-sheet="grades"><span><small>Grados que vigilo</small><b>PSA ' + rangeText(c.tracked) + '</b></span><span>Cambiar</span></button></div>';
+  h += '</div></div>' + priceBox(c) + editorBox(c) + '</div></div></div>';
+  h += actionsHtml(c);
   return h;
 }
 function vColBasic() {
@@ -1205,6 +1267,23 @@ function vSetBasic() {
   h += '</div></div><div><h2>Revisión</h2><div class="box set"><div class="line"><span>Revisar cada</span><b>6 horas</b></div><div class="line"><span>Consultas a PSA hoy</span><b>38 / 100</b></div><div class="line"><span>Cartas que caben<small>a este ritmo y con el límite diario</small></span><b>25</b></div><div class="line"><span>Cuenta de PSA</span><b class="ok">Conectada</b></div></div></div></div>';
   return h;
 }
+function addSheetHtml() {
+  var byCert = state.amode === 'cert';
+  var h = '<div class="backdrop" data-close="1"></div><div class="sheet"><div class="sheet-handle"></div><h3>Buscar carta</h3><p>Mírala sin añadirla: solo queda en tu historial de consultas.</p>';
+  var i;
+  h += '<div class="tab-switch"><button data-amode="cert" class="' + pick(byCert, 'on', '') + '">Por código</button><button data-amode="name" class="' + pick(byCert, '', 'on') + '">Por nombre</button></div>';
+  if (byCert) {
+    h += '<input class="field" id="certinp" inputmode="numeric" placeholder="Nº de cert (8 o 9 dígitos)" autocomplete="off">';
+    if (state.aerr !== '') { h += '<p class="sheet-error">' + state.aerr + '</p>'; }
+    return h + '<button class="btn pri full" data-lookup="1">Consultar</button></div>';
+  }
+  h += '<input class="field" placeholder="Nombre de la carta o del set" autocomplete="off"><div class="look-list">';
+  for (i = 0; i < viewed.length; i++) {
+    h += '<button class="change-card" data-lookadd="' + viewed[i].id + '"><div class="thumb" ' + cs(viewed[i]) + '><i></i></div><div><div class="n">' + viewed[i].name + '</div><div class="s">' + viewed[i].set + '</div></div><div class="d"><span>Mirar</span></div></button>';
+  }
+  if (viewed.length === 0) { h += '<p class="footnote">Ya sigues todas las cartas de la demo.</p>'; }
+  return h + '</div></div>';
+}
 function drawLayer() {
   var h = '';
   var c = byId(state.card);
@@ -1212,7 +1291,7 @@ function drawLayer() {
     h = '<div class="backdrop bk-grades" data-close="1"></div><div class="sheet sh-grades"><div class="sheet-handle"></div><h3>Grados que vigilo</h3><p>' + c.name + '</p>' + editorHtml(c, true) + '</div>';
   }
   if (state.sheet === 'add') {
-    h = '<div class="backdrop" data-close="1"></div><div class="sheet"><div class="sheet-handle"></div><h3>Añadir carta</h3><p>Escribe el número de cert de la etiqueta. La app detecta la carta y sus versiones.</p><input class="field" inputmode="numeric" placeholder="Nº de cert (8 u 9 dígitos)"><button class="btn pri full" data-close="1">Buscar carta</button></div>';
+    h = addSheetHtml();
   }
   document.getElementById('layer').innerHTML = h;
 }
@@ -1472,7 +1551,7 @@ state.hg = 9;
 state.fav = true;
 var pastEvents = [
   { d: '3 oct', c: 'blz', t: 'PSA 9 · Inglés', x: '+2' },
-  { d: '3 oct', c: 'umb', t: 'PSA 9 · Inglés', x: '−1' },
+  { d: '3 oct', c: 'umb', t: 'PSA 9 · Inglés', x: '+1' },
   { d: '2 oct', c: 'chz', t: 'PSA 2 · Inglés', x: '+1' },
   { d: '2 oct', c: 'lug', t: 'PSA 3 · Alemán', x: '+1' },
   { d: '29 sep', c: 'blz', t: 'PSA 10 · Japonés', x: '+3' },
@@ -1495,6 +1574,7 @@ function histHtml(c) {
   var max;
   var i;
   var h = '<div class="box"><h2>Historial guardado</h2><div class="hchips">';
+  if (!isFollowed(c)) { return '<div class="box"><h2>Historial guardado</h2><p class="hcap">Empieza a guardarse en cuanto la añadas a tu seguimiento.</p></div>'; }
   if (gs.length === 0) { return '<div class="box"><h2>Historial guardado</h2><p class="hcap">Cuando vigiles algún grado, aquí verás cómo evoluciona.</p></div>'; }
   if (gs.indexOf(state.hg) < 0) { state.hg = gs[0]; }
   g = state.hg;
@@ -1539,6 +1619,9 @@ document.addEventListener('click', function (e) {
   render(false);
 });
 
+state.hmode = 'chg';
+state.amode = 'cert';
+state.aerr = '';
 state.hrange = '30';
 state.hfrom = '2026-09-07';
 state.hto = '2026-10-07';
@@ -1567,7 +1650,6 @@ function hdata(c, g) {
     out.unshift({ d: new Date(2026, 9, 7 - j), v: v });
     inc = 0;
     if (rnd(idx * 977 + g * 31 + j) < 0.16) { inc = 1 + Math.floor(rnd(idx * 53 + g * 7 + j) * 3); }
-    if (rnd(idx * 13 + g * 5 + j) < 0.05) { inc = -1; }
     v = Math.max(0, v - inc);
   }
   return out;
@@ -1616,6 +1698,7 @@ function hgrade(c) {
 }
 function hfilter() {
   var opts = [['7', '7 días'], ['30', '30 días'], ['90', '90 días'], ['all', 'Todo'], ['custom', 'Fechas']];
+  if (state.hmode === 'look') { opts.unshift(['1', 'Hoy']); }
   var h = '<div class="history-filter"><div class="chips">';
   var i;
   for (i = 0; i < opts.length; i++) {
@@ -1660,8 +1743,42 @@ function hdetail(c) {
   }
   return h + '</div></div></div>';
 }
+function histSwitch() {
+  return '<div class="tab-switch hist-switch"><button data-hmode="chg" class="' + pick(state.hmode === 'chg', 'on', '') + '">Cambios</button><button data-hmode="look" class="' + pick(state.hmode === 'look', 'on', '') + '">Consultas</button></div>';
+}
+function inLookRange(d) {
+  var r = state.hrange;
+  var k = dkey(d);
+  var days = { '1': 0, '7': 7, '30': 30, '90': 90 };
+  if (r === 'all') { return true; }
+  if (r === 'custom') { return k >= state.hfrom && k <= state.hto; }
+  return k >= dkey(new Date(2026, 9, 7 - days[r]));
+}
+function vLookups() {
+  var h = '<h1 class="page-title">Historial</h1>' + histSwitch() + hfilter() + '<div class="look-list">';
+  var i;
+  var c;
+  var l;
+  var shown = 0;
+  var tm;
+  for (i = 0; i < lookups.length; i++) {
+    l = lookups[i];
+    if (!inLookRange(l.d)) { continue; }
+    shown++;
+    c = byId(l.c);
+    tm = dlabel(l.d) + ', ' + ('0' + l.d.getHours()).slice(-2) + ':' + ('0' + l.d.getMinutes()).slice(-2);
+    h += '<div class="look-row"><button class="change-card" data-look="' + c.id + '"><div class="thumb" ' + cs(c) + '><i></i></div><div><div class="n">' + c.name + '</div><div class="s">Cert ' + l.cert + ' · ' + tm + '</div></div><div class="d">' + pick(isFollowed(c), '<span class="status-pill ok">Siguiendo</span>', '<span class="status-pill warn">Sin seguir</span>') + '</div></button><button class="look-del" data-lookdel="' + i + '" aria-label="Borrar consulta">×</button></div>';
+  }
+  if (shown === 0) {
+    h += '<div class="empty-state">' + xIcon('hist') + '<h2>Sin consultas en este periodo</h2><p>Las cartas que mires sin seguirlas aparecerán aquí.</p></div>';
+  } else {
+    h += '<button class="btn full look-clear" data-lookclear="1">Borrar historial de consultas</button>';
+  }
+  return h + '</div>';
+}
 function vHistBasic() {
-  var h = '<h1 class="page-title">Historial</h1><div class="split-view" data-open="' + state.hopen + '"><div class="list-column">' + hfilter() + '<div class="stack">';
+  if (state.hmode === 'look') { return vLookups(); }
+  var h = '<h1 class="page-title">Historial</h1>' + histSwitch() + '<div class="split-view" data-open="' + state.hopen + '"><div class="list-column">' + hfilter() + '<div class="stack">';
   var i;
   var c;
   var sm;
@@ -1689,7 +1806,58 @@ document.addEventListener('change', function (e) {
   if (t.dataset.hd === 'from') { state.hfrom = t.value; } else { state.hto = t.value; }
   render(false);
 });
+document.addEventListener('click', function (e) {
+  var t = e.target.closest('[data-lookup],[data-lookadd],[data-look],[data-amode],[data-follow],[data-hmode],[data-lookdel],[data-lookclear]');
+  var c;
+  var val;
+  var pool;
+  if (!t) { return; }
+  if (t.dataset.amode) { state.amode = t.dataset.amode; state.aerr = ''; render(false); return; }
+  if (t.dataset.hmode) {
+    state.hmode = t.dataset.hmode;
+    if (state.hmode === 'chg' && state.hrange === '1') { state.hrange = '30'; }
+    render(false);
+    return;
+  }
+  if (t.dataset.lookdel) { lookups.splice(parseInt(t.dataset.lookdel, 10), 1); render(false); return; }
+  if (t.dataset.lookclear) { lookups.length = 0; render(false); return; }
+  if (t.dataset.follow) {
+    c = byId(state.card);
+    if (!isFollowed(c)) {
+      viewed.splice(viewed.indexOf(c), 1);
+      c.tracked = [9, 10];
+      c.delta = {};
+      cards.push(c);
+    }
+    state.filter = 'all';
+    render(false);
+    return;
+  }
+  if (t.dataset.lookup) {
+    val = document.getElementById('certinp').value.replace(/[^0-9]/g, '');
+    if (val.length < 8 || val.length > 9) { state.aerr = 'El número de cert tiene 8 o 9 dígitos.'; render(false); return; }
+    pool = viewed;
+    if (pool.length === 0) { pool = cards; }
+    c = pool[parseInt(val.slice(-2), 10) % pool.length];
+    lookups.unshift({ c: c.id, cert: val, d: new Date(2026, 9, 7, 19, 5) });
+  }
+  if (t.dataset.lookadd) {
+    c = byId(t.dataset.lookadd);
+    lookups.unshift({ c: c.id, cert: '60' + ('000000' + (c.name.length * 91733)).slice(-6), d: new Date(2026, 9, 7, 19, 5) });
+  }
+  if (t.dataset.look) { c = byId(t.dataset.look); }
+  state.aerr = '';
+  state.card = c.id;
+  state.ver = -1;
+  state.open = 1;
+  state.tab = 'col';
+  state.sheet = '';
+  render(true);
+});
 if (q === 'hist') { state.tab = 'hist'; }
+if (q === 'look') { state.tab = 'hist'; state.hmode = 'look'; }
+if (q === 'viewcard') { state.tab = 'col'; state.open = 1; state.card = 'ven'; }
+if (q === 'addname') { state.tab = 'col'; state.sheet = 'add'; state.amode = 'name'; }
 if (q === 'histdet') { state.tab = 'hist'; state.hopen = 1; }
 
 state.dev = false;
@@ -1894,7 +2062,7 @@ function admGenerico(sec) {
     catalogo: ['Juegos, sets, cartas, versiones, specs, certs e imágenes. Enlazar, fusionar y relectura forzada.', ['Carta', 'Set', 'Versiones', 'Specs', 'Certs', 'Imagen', ''], [['Blaziken Holo', 'Ruby & Sapphire', 'EN, FR, DE, JP', '4', '9', pillOf('ok'), '<button class="btn">Relectura</button>'], ['Charizard Holo', 'Base Set', 'EN, FR', '2', '31', pillOf('ok'), '<button class="btn">Relectura</button>'], ['Umbreon VMAX', 'Evolving Skies', 'EN, JP', '2', '14', pillOf('aviso'), '<button class="btn">Relectura</button>'], ['Lugia Holo', 'Neo Genesis', 'EN, DE', '2', '7', pillOf('ok'), '<button class="btn">Relectura</button>']]],
     lecturas: ['Historial de pop de cualquier spec, y los eventos que ha generado.', ['Spec', 'Carta', 'Leída', 'Total', 'Evento', 'Variación'], [['9001', 'Blaziken Holo · EN', 'hoy 18:40', '395', 'PSA 9', '<span class="up">▲2</span>'], ['9017', 'Umbreon VMAX · EN', 'hoy 18:42', '1.620', 'PSA 9', '<span class="dn">▼1</span>'], ['9044', 'Charizard Holo · EN', 'ayer', '25', 'PSA 2', '<span class="up">▲1</span>'], ['9102', 'Lugia Holo · DE', 'ayer', '10', 'PSA 3', '<span class="up">▲1</span>']]],
     seguimientos: ['Qué sigue cada usuario, con sus rangos, y los avisos generados.', ['Usuario', 'Carta', 'Rangos', 'Desde', 'Avisos enviados', 'Leídos'], [['yeray', 'Blaziken Holo', 'PSA 7-10', '12 sep', '14', '12'], ['yeray', 'Lugia Holo', 'PSA 2-3, 5-6', '20 sep', '6', '6'], ['khoya', 'Charizard Holo', 'PSA 1-3', '1 oct', '3', '1'], ['ana', 'Umbreon VMAX', 'PSA 9-10', '2 oct', '5', '5']]],
-    busquedas: ['Qué se busca, cuántas veces se encuentra y de dónde se contesta.', ['Término', 'Tipo', 'Veces', 'Con resultado', 'Origen', 'Tiempo medio'], [['blaziken holo', 'catálogo', '48', '100 %', 'base', '12 ms'], ['58231947', 'cert', '31', '94 %', 'base 80 % · PSA 20 %', '640 ms'], ['charizard 1ª edición', 'catálogo', '27', '63 %', 'base', '15 ms'], ['9001', 'spec', '19', '100 %', 'base', '9 ms']]],
+    busquedas: ['Qué se busca, cuántas veces se encuentra y de dónde se contesta. Incluye las cartas que se miran sin seguirlas.', ['Término', 'Tipo', 'Veces', 'Con resultado', 'Origen', 'Tiempo medio'], [['blaziken holo', 'catálogo', '48', '100 %', 'base', '12 ms'], ['58231947', 'cert', '31', '94 %', 'base 80 % · PSA 20 %', '640 ms'], ['charizard 1ª edición', 'catálogo', '27', '63 %', 'base', '15 ms'], ['9001', 'spec', '19', '100 %', 'base', '9 ms'], ['62158304', 'cert · solo mirada', '22', '100 %', 'base 90 % · PSA 10 %', '210 ms']]],
     consumo: ['Consultas reales a cada proveedor y las servidas desde la base, por usuario.', ['Usuario', 'Proveedor', 'Reales hoy', 'Desde la base', 'Cupo', '% acierto'], [['yeray', 'PSA', '38', '212', '38 / 100', '85 %'], ['khoya', 'PSA', '12', '90', '12 / 100', '88 %'], ['ana', 'PSA', '71', '104', '71 / 100', '59 %'], ['sistema (compartido)', 'PSA', '5', '1.074', '5 / 100', '99 %']]],
     fuentes: ['Estado de cada fuente y de cada tarea programada.', ['Fuente o tarea', 'Estado', 'Último correcto', 'Último error', 'Intentos', ''], [['PSA · API oficial', pillOf('activa'), 'hace 41 min', '–', '0', ''], ['Cardmarket', pillOf('activa'), 'hace 2 h', '–', '0', ''], ['eBay · ventas cerradas', pillOf('activa'), 'hace 1 día', '–', '0', ''], ['Marketplace', pillOf('bloqueada'), 'hace 1 día', '403 hoy 20:12', '4', '<button class="btn">Reintentar</button>'], ['Tarea: revisar PSA', pillOf('ok'), 'hace 18 min · 124 specs', '–', '0', ''], ['Tarea: enviar avisos', pillOf('ok'), 'hace 4 min · 6 avisos', '–', '0', '']]],
     precios: ['Series de precios por carta, grado y fuente. Cada serie lleva su grado.', ['Carta', 'Grado', 'Fuente', 'Tipo', 'Último precio', 'Variación 7 días'], [['Blaziken Holo', 'PSA 9', 'Cardmarket', 'tendencia', '184,5 €', '+4,2 %'], ['Blaziken Holo', 'PSA 9', 'eBay', 'venta', '351 €', '+1,1 %'], ['Charizard Holo', 'PSA 2', 'Cardmarket', 'tendencia', '412 €', '−1,1 %'], ['Umbreon VMAX', 'Sin gradear', 'Cardmarket', 'tendencia', '188,9 €', '+2,6 %']]],
@@ -1996,7 +2164,7 @@ function xBusqueda() {
   return h;
 }
 function xEstado(vista, tipo) {
-  var t = { panel: ['Sin cambios nuevos', 'Cuando el número de cartas de un grado vigilado suba o baje, lo verás aquí.', 'panel'], col: ['Aún no tienes cartas', 'Añade tu primera carta con el número de cert de su etiqueta.', 'col'], hist: ['Sin historial todavía', 'El historial empieza cuando se lee por primera vez una carta que sigues.', 'hist'], price: ['Sin precios todavía', 'Las fuentes aún no han leído precios de tus cartas.', 'price'] }[vista];
+  var t = { panel: ['Sin cambios nuevos', 'Cuando el número de cartas de un grado vigilado suba, lo verás aquí.', 'panel'], col: ['Aún no tienes cartas', 'Añade tu primera carta con el número de cert de su etiqueta.', 'col'], hist: ['Sin historial todavía', 'El historial empieza cuando se lee por primera vez una carta que sigues.', 'hist'], price: ['Sin precios todavía', 'Las fuentes aún no han leído precios de tus cartas.', 'price'] }[vista];
   var tt = { panel: 'Cambios', col: 'Colección', hist: 'Historial', price: 'Precios' }[vista];
   var h = '<h1 class="page-title">' + tt + '</h1>';
   var i;
