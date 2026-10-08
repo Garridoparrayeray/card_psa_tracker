@@ -256,15 +256,15 @@ tbody tr.tot td { font-weight: 800; }
 .set .line { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 54px; border-top: 1px solid var(--border); font-size: .95rem; }
 .set .line:first-child { border: 0; }
 .history-filter { margin-bottom: 14px; }
-.hist-switch { margin: 0 0 14px; max-width: 360px; }
+.tab-switch.hist-switch { display: flex; margin: 0 0 14px; max-width: 460px; }
+.hist-switch button { flex: 1; }
+.archive-note { text-align: left; margin: 0 0 12px; }
 .look-list { display: flex; flex-direction: column; gap: 10px; }
 .look-row { display: flex; align-items: center; gap: 8px; }
 .look-row .change-card { flex: 1; min-width: 0; }
 .look-del { flex: none; width: 36px; height: 36px; border-radius: 50%; font-size: 22px; line-height: 1; color: var(--text-secondary); }
 .look-clear { margin-top: 6px; }
-.look-row .status-pill { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: .7rem; font-weight: 700; white-space: nowrap; }
-.look-row .status-pill.ok { background: rgba(46, 160, 90, .16); color: #1f7a43; }
-.look-row .status-pill.warn { background: rgba(240, 140, 0, .16); color: #a35c00; }
+.look-row .in-collection { font-size: .72rem; font-weight: 700; color: var(--primary); }
 .view-banner { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0; padding: 12px 14px; border-radius: 8px; background: var(--primary-tint); border: 1px solid var(--primary); }
 .view-banner span { flex: 1; min-width: 180px; }
 .view-banner small { display: block; font-size: .78rem; font-weight: 500; color: var(--text-secondary); }
@@ -878,44 +878,59 @@ html[data-app] .site-footer { display: none; }
 <div id="layer"></div>
 <script>
 var cards = [
-  { id: 'blz', name: 'Blaziken Holo', set: 'Ruby & Sapphire · 3/109', c1: '#e8622c', c2: '#7a1d12', price: 184.5, pct: 4.2, trend: [160, 163, 170, 168, 174, 181, 184.5], tracked: [7, 8, 9, 10], delta: { 9: 2 },
+  { id: 'blz', cert: '58231947', name: 'Blaziken Holo', set: 'Ruby & Sapphire · 3/109', c1: '#e8622c', c2: '#7a1d12', price: 184.5, pct: 4.2, trend: [160, 163, 170, 168, 174, 181, 184.5], tracked: [7, 8, 9, 10], delta: { 9: 2 },
     versions: [
       { n: 'Inglés', pop: [0, 1, 0, 2, 6, 14, 31, 88, 200, 77] },
       { n: 'Francés', pop: [0, 0, 1, 0, 2, 5, 12, 29, 61, 18] },
       { n: 'Alemán', pop: [0, 0, 0, 1, 1, 3, 9, 20, 44, 11] },
       { n: 'Japonés', pop: [0, 0, 0, 0, 1, 4, 10, 36, 90, 52] }
     ] },
-  { id: 'chz', name: 'Charizard Holo', set: 'Base Set · 4/102', c1: '#f2a23a', c2: '#8b2a0e', price: 412, pct: -1.1, trend: [430, 425, 420, 418, 415, 413, 412], tracked: [1, 2, 3], delta: { 2: 1 },
+  { id: 'chz', cert: '61045582', name: 'Charizard Holo', set: 'Base Set · 4/102', c1: '#f2a23a', c2: '#8b2a0e', price: 412, pct: -1.1, trend: [430, 425, 420, 418, 415, 413, 412], tracked: [1, 2, 3], delta: { 2: 1 },
     versions: [
       { n: 'Inglés', pop: [4, 9, 20, 41, 86, 150, 290, 410, 520, 190] },
       { n: 'Francés', pop: [1, 2, 5, 9, 20, 34, 61, 90, 110, 30] }
     ] },
-  { id: 'umb', name: 'Umbreon VMAX', set: 'Evolving Skies · 215/203', c1: '#3a4a8f', c2: '#0b0f26', price: 540, pct: 2.6, trend: [500, 510, 520, 526, 530, 536, 540], tracked: [9, 10], delta: { 9: 1 },
+  { id: 'umb', cert: '63318870', name: 'Umbreon VMAX', set: 'Evolving Skies · 215/203', c1: '#3a4a8f', c2: '#0b0f26', price: 540, pct: 2.6, trend: [500, 510, 520, 526, 530, 536, 540], tracked: [9, 10], delta: { 9: 1 },
     versions: [
       { n: 'Inglés', pop: [0, 0, 1, 2, 4, 12, 60, 340, 1210, 880] },
       { n: 'Japonés', pop: [0, 0, 0, 0, 1, 3, 18, 120, 410, 240] }
     ] },
-  { id: 'lug', name: 'Lugia Holo', set: 'Neo Genesis · 9/111', c1: '#7fb8d9', c2: '#27506e', price: 295, pct: 1.0, trend: [280, 283, 286, 290, 291, 294, 295], tracked: [2, 3, 5, 6], delta: { 3: 1 },
+  { id: 'lug', cert: '57762094', name: 'Lugia Holo', set: 'Neo Genesis · 9/111', c1: '#7fb8d9', c2: '#27506e', price: 295, pct: 1.0, trend: [280, 283, 286, 290, 291, 294, 295], tracked: [2, 3, 5, 6], delta: { 3: 1 },
     versions: [
       { n: 'Inglés', pop: [2, 3, 8, 14, 33, 60, 120, 210, 160, 24] },
       { n: 'Alemán', pop: [0, 1, 2, 3, 8, 14, 26, 41, 30, 4] }
     ] }
 ];
 var viewed = [
-  { id: 'ven', name: 'Venusaur Holo', set: 'Base Set · 15/102', c1: '#5cae5a', c2: '#1f4d2b', price: 260, pct: 0.8, trend: [250, 252, 255, 254, 257, 259, 260], tracked: [], delta: {},
+  { id: 'ven', cert: '62158304', name: 'Venusaur Holo', set: 'Base Set · 15/102', c1: '#5cae5a', c2: '#1f4d2b', price: 260, pct: 0.8, trend: [250, 252, 255, 254, 257, 259, 260], tracked: [], delta: {},
     versions: [
       { n: 'Inglés', pop: [3, 6, 14, 30, 62, 110, 190, 280, 310, 120] },
       { n: 'Francés', pop: [0, 1, 3, 7, 15, 28, 52, 70, 80, 21] }
     ] },
-  { id: 'mtw', name: 'Mewtwo Holo', set: 'Base Set · 10/102', c1: '#a58ad8', c2: '#33205e', price: 95, pct: 1.9, trend: [88, 89, 90, 92, 93, 94, 95], tracked: [], delta: {},
+  { id: 'mtw', cert: '59417720', name: 'Mewtwo Holo', set: 'Base Set · 10/102', c1: '#a58ad8', c2: '#33205e', price: 95, pct: 1.9, trend: [88, 89, 90, 92, 93, 94, 95], tracked: [], delta: {},
     versions: [
       { n: 'Inglés', pop: [2, 5, 12, 26, 55, 98, 170, 240, 270, 96] },
       { n: 'Alemán', pop: [0, 1, 2, 5, 11, 20, 39, 58, 64, 17] }
     ] },
-  { id: 'gen', name: 'Gengar Holo', set: 'Fossil · 5/62', c1: '#7c4fa0', c2: '#25123d', price: 120, pct: -0.6, trend: [124, 123, 122, 122, 121, 121, 120], tracked: [], delta: {},
+  { id: 'gen', cert: '60873315', name: 'Gengar Holo', set: 'Fossil · 5/62', c1: '#7c4fa0', c2: '#25123d', price: 120, pct: -0.6, trend: [124, 123, 122, 122, 121, 121, 120], tracked: [], delta: {},
     versions: [
       { n: 'Inglés', pop: [1, 3, 9, 18, 40, 77, 140, 190, 205, 64] },
       { n: 'Japonés', pop: [0, 0, 1, 3, 7, 15, 31, 55, 70, 33] }
+    ] },
+  { id: 'bla', cert: '61790244', name: 'Blastoise Holo', set: 'Base Set · 2/102', c1: '#4f9be0', c2: '#173a66', price: 330, pct: 1.4, trend: [316, 319, 322, 325, 326, 329, 330], tracked: [], delta: {},
+    versions: [
+      { n: 'Inglés', pop: [2, 5, 15, 33, 70, 120, 215, 300, 330, 130] },
+      { n: 'Francés', pop: [0, 1, 4, 8, 17, 30, 55, 77, 88, 25] }
+    ] },
+  { id: 'dra', cert: '58840731', name: 'Dragonite Holo', set: 'Fossil · 4/62', c1: '#e8b04a', c2: '#7a4a10', price: 85, pct: 0.5, trend: [82, 83, 83, 84, 84, 85, 85], tracked: [], delta: {},
+    versions: [
+      { n: 'Inglés', pop: [1, 2, 8, 16, 36, 70, 128, 175, 190, 58] },
+      { n: 'Alemán', pop: [0, 0, 1, 3, 6, 12, 24, 38, 44, 12] }
+    ] },
+  { id: 'esp', cert: '60219956', name: 'Espeon Holo', set: 'Neo Discovery · 1/75', c1: '#c47be0', c2: '#4a1f66', price: 210, pct: 2.1, trend: [196, 199, 202, 204, 206, 208, 210], tracked: [], delta: {},
+    versions: [
+      { n: 'Inglés', pop: [0, 1, 3, 9, 22, 48, 96, 150, 160, 70] },
+      { n: 'Japonés', pop: [0, 0, 0, 2, 5, 11, 26, 44, 52, 21] }
     ] }
 ];
 var lookups = [
@@ -1017,6 +1032,29 @@ function byId(id) {
 }
 function isFollowed(c) {
   return cards.indexOf(c) >= 0;
+}
+function esc(v) {
+  return v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function norm(v) {
+  return v.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+function matchCard(c, q) {
+  var n = norm(q.trim());
+  if (n === '') { return true; }
+  return norm(c.name + ' ' + c.set + ' ' + c.cert).indexOf(n) >= 0;
+}
+function findCert(v) {
+  var all = cards.concat(viewed);
+  var i;
+  for (i = 0; i < all.length; i++) {
+    if (all[i].cert === v) { return all[i]; }
+  }
+  return null;
+}
+function noteLookup(c, cert) {
+  if (isFollowed(c)) { return; }
+  lookups.unshift({ c: c.id, cert: cert, d: new Date(2026, 9, 7, 19, 5) });
 }
 function rangeText(list) {
   var s = list.slice().sort(function (a, b) { return a - b; });
@@ -1135,14 +1173,14 @@ function navLabel(id, t) {
   return t;
 }
 function drawNavItems() {
-  var items = [['panel', 'Cambios'], ['col', 'Colección'], ['add', 'Añadir'], ['hist', 'Historial'], ['price', 'Precios'], ['set', 'Ajustes']];
+  var items = [['panel', 'Cambios'], ['col', 'Colección'], ['add', 'Buscar'], ['hist', 'Historial'], ['price', 'Precios'], ['set', 'Ajustes']];
   var h = '<div class="nav-brand"><span class="top-lens"></span><span class="top-leds"><i></i><i></i><i></i></span></div>';
   var i;
   var it;
   for (i = 0; i < items.length; i++) {
     it = items[i];
     if (it[0] === 'add') {
-      h += '<button class="nav-item add" data-sheet="add"><span class="nav-fab">' + ico('add') + '</span><span class="lb">' + it[1] + '</span></button>';
+      h += '<button class="nav-item add" data-sheet="add"><span class="nav-fab">' + ico('find') + '</span><span class="lb">' + it[1] + '</span></button>';
     } else {
       h += '<button class="nav-item ' + pick(state.tab === it[0], 'on', '') + '" data-t="' + it[0] + '">' + ico(it[0]) + '<span>' + navLabel(it[0], it[1]) + '</span>';
       if (it[0] === 'panel') { h += '<span class="nav-badge">4</span>'; }
@@ -1178,16 +1216,19 @@ function vPriceBasic() {
   return h;
 }
 function vList() {
-  var h = '<div class="search">' + ico('find') + '<input placeholder="Buscar carta, set o nº de cert"></div>';
+  var h = '<div class="search">' + ico('find') + '<input id="colq" data-q="col" placeholder="Buscar carta, set o nº de cert" autocomplete="off" value="' + esc(state.qs.col) + '"></div>';
   var i;
   var c;
+  var shown = 0;
   h += '<div class="chips"><button data-f="all" class="' + pick(state.filter === 'all', 'on', '') + '">Todas · ' + cards.length + '</button><button data-f="ch" class="' + pick(state.filter === 'ch', 'on', '') + '">Con cambios · 4</button><button data-t="price">Ver precios</button></div><div class="grid">';
   for (i = 0; i < cards.length; i++) {
     c = cards[i];
-    if (state.filter === 'all' || changeCount(c) > 0) {
+    if ((state.filter === 'all' || changeCount(c) > 0) && matchCard(c, state.qs.col)) {
+      shown++;
       h += '<button class="collection-card ' + pick(c.id === state.card, 'sel', '') + '" data-card="' + c.id + '"><div class="thumb th" ' + cs(c) + '><i></i>' + badgeOf(c) + '</div><div class="card-info"><div class="no">Nº ' + dex(c) + '</div><div class="n">' + c.name + '</div><div class="s">' + c.set + '</div><span class="tag-label">PSA ' + rangeText(c.tracked) + '</span></div><div class="card-figures">' + figLines(c) + '</div></button>';
     }
   }
+  if (shown === 0) { h += '<p class="footnote">Ninguna carta coincide con esa búsqueda.</p>'; }
   return h + '</div>';
 }
 function gradeOptions() {
@@ -1274,17 +1315,22 @@ function addSheetHtml() {
   var byCert = state.amode === 'cert';
   var h = '<div class="backdrop" data-close="1"></div><div class="sheet"><div class="sheet-handle"></div><h3>Buscar carta</h3><p>Mírala sin añadirla: solo queda en tu historial de consultas.</p>';
   var i;
+  var list;
+  var shown = 0;
   h += '<div class="tab-switch"><button data-amode="cert" class="' + pick(byCert, 'on', '') + '">Por código</button><button data-amode="name" class="' + pick(byCert, '', 'on') + '">Por nombre</button></div>';
   if (byCert) {
     h += '<input class="field" id="certinp" inputmode="numeric" placeholder="Nº de cert (8 o 9 dígitos)" autocomplete="off">';
     if (state.aerr !== '') { h += '<p class="sheet-error">' + state.aerr + '</p>'; }
-    return h + '<button class="btn pri full" data-lookup="1">Consultar</button></div>';
+    return h + '<p class="mini">Para probar: 62158304, 59417720 o 60873315.</p><button class="btn pri full" data-lookup="1">Consultar</button></div>';
   }
-  h += '<input class="field" placeholder="Nombre de la carta o del set" autocomplete="off"><div class="look-list">';
-  for (i = 0; i < viewed.length; i++) {
-    h += '<button class="change-card" data-lookadd="' + viewed[i].id + '"><div class="thumb" ' + cs(viewed[i]) + '><i></i></div><div><div class="n">' + viewed[i].name + '</div><div class="s">' + viewed[i].set + '</div></div><div class="d"><span>Mirar</span></div></button>';
+  list = cards.concat(viewed);
+  h += '<input class="field" id="nameq" data-q="name" placeholder="Nombre de la carta o del set" autocomplete="off" value="' + esc(state.qs.name) + '"><div class="look-list">';
+  for (i = 0; i < list.length; i++) {
+    if (!matchCard(list[i], state.qs.name)) { continue; }
+    shown++;
+    h += '<button class="change-card" data-lookadd="' + list[i].id + '"><div class="thumb" ' + cs(list[i]) + '><i></i></div><div><div class="n">' + list[i].name + '</div><div class="s">' + list[i].set + '</div></div><div class="d"><span>' + pick(isFollowed(list[i]), 'En tu colección', 'Ver') + '</span></div></button>';
   }
-  if (viewed.length === 0) { h += '<p class="footnote">Ya sigues todas las cartas de la demo.</p>'; }
+  if (shown === 0) { h += '<p class="footnote">Ninguna carta coincide con esa búsqueda.</p>'; }
   return h + '</div></div>';
 }
 function drawLayer() {
@@ -1599,7 +1645,6 @@ function histHtml(c) {
   var max;
   var i;
   var h = '<div class="box"><h2>Historial guardado</h2><div class="hchips">';
-  if (!isFollowed(c)) { return '<div class="box"><h2>Historial guardado</h2><p class="hcap">Empieza a guardarse en cuanto la añadas a tu seguimiento.</p></div>'; }
   if (gs.length === 0) { return '<div class="box"><h2>Historial guardado</h2><p class="hcap">Cuando vigiles algún grado, aquí verás cómo evoluciona.</p></div>'; }
   if (gs.indexOf(state.hg) < 0) { state.hg = gs[0]; }
   g = state.hg;
@@ -1614,6 +1659,7 @@ function histHtml(c) {
   }
   h += '</div><svg class="hchart" viewBox="0 0 300 110" preserveAspectRatio="none"><polyline fill="none" style="stroke:var(--primary)" stroke-width="2.6" points="' + pts.join(' ') + '"/><circle cx="294" cy="' + pts[pts.length - 1].split(',')[1] + '" r="4.5" style="fill:var(--alert)"/></svg>';
   h += '<p class="hcap">PSA ' + g + ': de <b>' + s[0] + '</b> a <b>' + s[s.length - 1] + '</b> en 14 días <b style="color:var(--alert)">(+' + (s[s.length - 1] - s[0]) + ')</b></p>';
+  if (!isFollowed(c)) { return h + '<div class="favrow"><span>Guardado en nuestra base · 41 lecturas</span></div></div>'; }
   h += '<div class="favrow"><span>' + pick(state.fav, 'Siguiendo desde el 12 sep · 41 lecturas guardadas', 'Dejaste de seguirla · el historial se conserva') + '</span><button data-fav="1" class="' + pick(state.fav, '', 'off') + '">' + pick(state.fav, 'Dejar de seguir', 'Volver a seguir') + '</button></div></div>';
   return h;
 }
@@ -1647,6 +1693,7 @@ document.addEventListener('click', function (e) {
 });
 
 state.hmode = 'chg';
+state.qs = { col: '', arch: '', name: '' };
 state.amode = 'cert';
 state.aerr = '';
 state.hrange = '30';
@@ -1771,7 +1818,24 @@ function hdetail(c) {
   return h + '</div></div></div>';
 }
 function histSwitch() {
-  return '<div class="tab-switch hist-switch"><button data-hmode="chg" class="' + pick(state.hmode === 'chg', 'on', '') + '">Cambios</button><button data-hmode="look" class="' + pick(state.hmode === 'look', 'on', '') + '">Consultas</button></div>';
+  return '<div class="tab-switch hist-switch"><button data-hmode="chg" class="' + pick(state.hmode === 'chg', 'on', '') + '">Cambios</button><button data-hmode="look" class="' + pick(state.hmode === 'look', 'on', '') + '">Consultas</button><button data-hmode="arch" class="' + pick(state.hmode === 'arch', 'on', '') + '">Histórico</button></div>';
+}
+function vArchive() {
+  var list = cards.concat(viewed).sort(function (a, b) { return a.name.localeCompare(b.name); });
+  var h = '<h1 class="page-title">Historial</h1>' + histSwitch() + '<div class="search">' + ico('find') + '<input id="archq" data-q="arch" placeholder="Buscar en el histórico por carta, set o cert" autocomplete="off" value="' + esc(state.qs.arch) + '"></div><p class="footnote archive-note">Todas las cartas con datos guardados en nuestra base. Este histórico no se borra.</p><div class="look-list">';
+  var i;
+  var c;
+  var shown = 0;
+  for (i = 0; i < list.length; i++) {
+    c = list[i];
+    if (!matchCard(c, state.qs.arch)) { continue; }
+    shown++;
+    h += '<button class="change-card" data-look="' + c.id + '"><div class="thumb" ' + cs(c) + '><i></i></div><div><div class="n">' + c.name + '</div><div class="s">' + c.set + ' · cert ' + c.cert + '</div>' + pick(isFollowed(c), '<span class="tag-label">En tu colección</span>', '') + '</div><div class="d"><b>' + total(c)[9] + '</b><span>en PSA 10</span></div></button>';
+  }
+  if (shown === 0) {
+    h += '<div class="empty-state">' + xIcon('hist') + '<h2>Ninguna carta coincide</h2><p>Prueba con otro nombre, set o número de cert.</p></div>';
+  }
+  return h + '</div>';
 }
 function inLookRange(d) {
   var r = state.hrange;
@@ -1794,7 +1858,7 @@ function vLookups() {
     shown++;
     c = byId(l.c);
     tm = dlabel(l.d) + ', ' + ('0' + l.d.getHours()).slice(-2) + ':' + ('0' + l.d.getMinutes()).slice(-2);
-    h += '<div class="look-row"><button class="change-card" data-look="' + c.id + '"><div class="thumb" ' + cs(c) + '><i></i></div><div><div class="n">' + c.name + '</div><div class="s">Cert ' + l.cert + ' · ' + tm + '</div></div><div class="d">' + pick(isFollowed(c), '<span class="status-pill ok">Siguiendo</span>', '<span class="status-pill warn">Sin seguir</span>') + '</div></button><button class="look-del" data-lookdel="' + i + '" aria-label="Borrar consulta">×</button></div>';
+    h += '<div class="look-row"><button class="change-card" data-look="' + c.id + '"><div class="thumb" ' + cs(c) + '><i></i></div><div><div class="n">' + c.name + '</div><div class="s">Cert ' + l.cert + ' · ' + tm + '</div></div><div class="d">' + pick(isFollowed(c), '<span class="in-collection">En tu colección</span>', '') + '</div></button><button class="look-del" data-lookdel="' + i + '" aria-label="Borrar consulta">×</button></div>';
   }
   if (shown === 0) {
     h += '<div class="empty-state">' + xIcon('hist') + '<h2>Sin consultas en este periodo</h2><p>Las cartas que mires sin seguirlas aparecerán aquí.</p></div>';
@@ -1805,6 +1869,7 @@ function vLookups() {
 }
 function vHistBasic() {
   if (state.hmode === 'look') { return vLookups(); }
+  if (state.hmode === 'arch') { return vArchive(); }
   var h = '<h1 class="page-title">Historial</h1>' + histSwitch() + '<div class="split-view" data-open="' + state.hopen + '"><div class="list-column">' + hfilter() + '<div class="stack">';
   var i;
   var c;
@@ -1863,14 +1928,17 @@ document.addEventListener('click', function (e) {
   if (t.dataset.lookup) {
     val = document.getElementById('certinp').value.replace(/[^0-9]/g, '');
     if (val.length < 8 || val.length > 9) { state.aerr = 'El número de cert tiene 8 o 9 dígitos.'; render(false); return; }
-    pool = viewed;
-    if (pool.length === 0) { pool = cards; }
-    c = pool[parseInt(val.slice(-2), 10) % pool.length];
-    lookups.unshift({ c: c.id, cert: val, d: new Date(2026, 9, 7, 19, 5) });
+    c = findCert(val);
+    if (!c) {
+      pool = viewed;
+      if (pool.length === 0) { pool = cards; }
+      c = pool[parseInt(val.slice(-2), 10) % pool.length];
+    }
+    noteLookup(c, val);
   }
   if (t.dataset.lookadd) {
     c = byId(t.dataset.lookadd);
-    lookups.unshift({ c: c.id, cert: '60' + ('000000' + (c.name.length * 91733)).slice(-6), d: new Date(2026, 9, 7, 19, 5) });
+    noteLookup(c, c.cert);
   }
   if (t.dataset.look) { c = byId(t.dataset.look); }
   state.aerr = '';
@@ -1881,6 +1949,21 @@ document.addEventListener('click', function (e) {
   state.sheet = '';
   render(true);
 });
+document.addEventListener('input', function (e) {
+  var t = e.target;
+  var pos;
+  var n;
+  if (!t.dataset || !t.dataset.q) { return; }
+  state.qs[t.dataset.q] = t.value;
+  pos = t.selectionStart;
+  render(false);
+  n = document.getElementById(t.id);
+  if (n) {
+    n.focus();
+    n.setSelectionRange(pos, pos);
+  }
+});
+if (q === 'arch') { state.tab = 'hist'; state.hmode = 'arch'; }
 if (q === 'hist') { state.tab = 'hist'; }
 if (q === 'look') { state.tab = 'hist'; state.hmode = 'look'; }
 if (q === 'viewcard') { state.tab = 'col'; state.open = 1; state.card = 'ven'; }
