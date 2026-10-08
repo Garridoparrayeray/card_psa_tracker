@@ -30,7 +30,7 @@
 @keyframes skel {
   from { background-position: 200% 0; } to { background-position: -200% 0; }
 }
-:root, :root[data-theme="light"] { --bg: #f1f0ec; --surface: #ffffff; --border: #dad7cf; --primary: #d6232b; --primary-light: #ffffff; --primary-dark: #8f1219; --primary-tint: #fbe4e5; --text: #17181b; --text-secondary: #5d6068; --alert: #1f6fd1; --alert-tint: #e3effd; --on-alert: #ffffff; --down: #8b8e95; --good: #2f9e5a; --bar: #c9ccd3; --shadow-soft: 0 1px 3px rgba(23, 24, 27, .12), 0 1px 2px rgba(23, 24, 27, .08); --head-bg: #d6232b; --screen: #161b24; --lens-ring: #ffffff; --leds-d: flex; --nb-bg: #1f6fd1; --nb-fg: #ffffff; --nb-bd: transparent; --nb-on-bg: #1f6fd1; --nb-on-fg: #ffffff; --fab-fg: #ffffff; --fab-bd: 3px solid #f1f0ec; --fab-sh: 0 6px 14px rgba(0, 0, 0, .35); --lens-bg: radial-gradient(circle at 34% 28%, #d8eeff 0 9%, #58aaff 26%, #1a60c8 70%, #0f3f8a); --knob-bg: radial-gradient(circle at 50% 50%, #fff 0 22%, #17181b 22% 34%, transparent 35%), linear-gradient(180deg, #e53935 0 46%, #17181b 46% 54%, #f5f5f5 54%); --knob-w: 22px; --knob-br: 50%; --knob-bd: #17181b; --track-bg: rgba(0, 0, 0, .28); --track-bd: rgba(255, 255, 255, .55); --fab: radial-gradient(circle at 35% 30%, #d8eeff 0 9%, #58aaff 26%, #1a60c8 72%, #0f3f8a); --nav-on-bg: #d6232b; --nav-on-fg: #ffffff; --side-bg: #d6232b; --side-fg: #ffffff; --side-dim: #ffd6d8; --side-line: #b11d24; --side-on-bg: #ffffff; --side-on-fg: #d6232b; --side-add: #1f6fd1; --nav-h: 64px; --stage-bg: var(--primary); --stage-sh: 0 8px 24px rgba(214, 35, 43, .22); --stage-pattern: repeating-linear-gradient(0deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 4px); --stage-plus-op: .12; --stage-btn-bg: #ffffff; --stage-btn-fg: var(--primary); --safe-b: env(safe-area-inset-bottom); --safe-t: env(safe-area-inset-top); --display: 'Lilita One', 'Inter', sans-serif; }
+:root, :root[data-theme="light"] { --bg: #f1f0ec; --surface: #ffffff; --border: #dad7cf; --tab-sep: rgba(214, 35, 43, .5); --primary: #d6232b; --primary-light: #ffffff; --primary-dark: #8f1219; --primary-tint: #fbe4e5; --text: #17181b; --text-secondary: #5d6068; --alert: #1f6fd1; --alert-tint: #e3effd; --on-alert: #ffffff; --down: #8b8e95; --good: #2f9e5a; --bar: #c9ccd3; --shadow-soft: 0 1px 3px rgba(23, 24, 27, .12), 0 1px 2px rgba(23, 24, 27, .08); --head-bg: #d6232b; --screen: #161b24; --lens-ring: #ffffff; --leds-d: flex; --nb-bg: #1f6fd1; --nb-fg: #ffffff; --nb-bd: transparent; --nb-on-bg: #1f6fd1; --nb-on-fg: #ffffff; --fab-fg: #ffffff; --fab-bd: 3px solid #f1f0ec; --fab-sh: 0 6px 14px rgba(0, 0, 0, .35); --lens-bg: radial-gradient(circle at 34% 28%, #d8eeff 0 9%, #58aaff 26%, #1a60c8 70%, #0f3f8a); --knob-bg: radial-gradient(circle at 50% 50%, #fff 0 22%, #17181b 22% 34%, transparent 35%), linear-gradient(180deg, #e53935 0 46%, #17181b 46% 54%, #f5f5f5 54%); --knob-w: 22px; --knob-br: 50%; --knob-bd: #17181b; --track-bg: rgba(0, 0, 0, .28); --track-bd: rgba(255, 255, 255, .55); --fab: radial-gradient(circle at 35% 30%, #d8eeff 0 9%, #58aaff 26%, #1a60c8 72%, #0f3f8a); --nav-on-bg: #d6232b; --nav-on-fg: #ffffff; --side-bg: #d6232b; --side-fg: #ffffff; --side-dim: #ffd6d8; --side-line: #b11d24; --side-on-bg: #ffffff; --side-on-fg: #d6232b; --side-add: #1f6fd1; --nav-h: 64px; --stage-bg: var(--primary); --stage-sh: 0 8px 24px rgba(214, 35, 43, .22); --stage-pattern: repeating-linear-gradient(0deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 4px); --stage-plus-op: .12; --stage-btn-bg: #ffffff; --stage-btn-fg: var(--primary); --safe-b: env(safe-area-inset-bottom); --safe-t: env(safe-area-inset-top); --display: 'Lilita One', 'Inter', sans-serif; }
 *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 [hidden] { display: none !important; }
 svg[viewBox] path, svg[viewBox] line, svg[viewBox] circle, svg[viewBox] rect, svg[viewBox] polyline { stroke-linecap: square; stroke-linejoin: miter; }
@@ -268,6 +268,15 @@ tbody tr.tot td { font-weight: 800; }
 .view-banner { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0; padding: 12px 14px; border-radius: 8px; background: var(--primary-tint); border: 1px solid var(--primary); }
 .view-banner span { flex: 1; min-width: 180px; }
 .view-banner small { display: block; font-size: .78rem; font-weight: 500; color: var(--text-secondary); }
+.tab-switch button + button { border-left: 1px solid var(--tab-sep); }
+.keys-title { margin: 18px 0 4px; font-family: var(--display); font-size: 1rem; font-weight: 400; }
+.keys-note { margin: 0 0 8px; font-size: .78rem; color: var(--text-secondary); }
+.hero-follow { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; max-width: 320px; height: 54px; margin: 16px auto 0; border-radius: 10px; background: #fff; color: var(--primary); font-size: 1.05rem; font-weight: 800; box-shadow: 0 4px 14px rgba(0, 0, 0, .3); animation: follow-pulse 2.4s ease-in-out infinite; }
+.hero-follow svg { width: 22px; height: 22px; }
+.view-banner .btn { height: 48px; }
+@keyframes follow-pulse { 0%, 100% { box-shadow: 0 4px 14px rgba(0, 0, 0, .3), 0 0 0 0 rgba(255, 255, 255, .55); } 50% { box-shadow: 0 4px 14px rgba(0, 0, 0, .3), 0 0 0 9px rgba(255, 255, 255, 0); } }
+@media (prefers-reduced-motion: reduce) { .hero-follow { animation: none; } }
+.unfollow-btn { margin-top: 12px; height: 52px; font-size: 1rem; }
 .sheet-error { color: var(--alert); font-weight: 700; margin: 8px 0 0; }
 .sheet-body { display: flex; flex-direction: column; height: 300px; }
 .sheet-body .field { flex: none; }
@@ -879,11 +888,11 @@ html[data-app] .site-footer { display: none; }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --bg: #131416; --surface: #25282d; --border: #4a4f57; --primary: #d42a31; --primary-light: #f2f3f5; --primary-dark: #8f1219; --primary-tint: #3a2224; --text: #eceef1; --text-secondary: #b5bac3; --alert: #ff6e62; --alert-tint: #3b2623; --on-alert: #1b0e0c; --down: #7a7f88; --good: #4fbf7a; --bar: #4a4e56; --shadow-soft: 0 1px 3px rgba(0, 0, 0, .5); --head-bg: #1e2023; --screen: #0a0b0d; --lens-ring: #6b6f77; --leds-d: none; --nb-bg: #d42a31; --nb-fg: #ffffff; --nb-bd: transparent; --nb-on-bg: #ffffff; --nb-on-fg: #d42a31; --fab-fg: #17181b; --fab-bd: 4px solid #17181b; --fab-sh: 0 0 0 3px #d42a31, 0 8px 16px rgba(0, 0, 0, .45); --lens-bg: radial-gradient(circle at 50% 50%, #f4f4f4 0 21%, #17181b 21% 31%, transparent 32%), linear-gradient(135deg, transparent 43%, #17181b 43% 57%, transparent 57%), #d42a31; --knob-bg: #4fbf7a; --knob-w: 14px; --knob-br: 3px; --knob-bd: #1a5b36; --track-bg: #121315; --track-bd: #4a4e56; --fab: #f4f5f7; --nav-on-bg: #d42a31; --nav-on-fg: #ffffff; --side-bg: #101113; --side-fg: #d7dadf; --side-dim: #8e939c; --side-line: #2a2c30; --side-on-bg: #d42a31; --side-on-fg: #ffffff; --side-add: #d42a31; --stage-bg: var(--screen); --stage-sh: none; --stage-pattern: repeating-linear-gradient(0deg, rgba(255, 255, 255, .04) 0 1px, transparent 1px 4px); --stage-plus-op: .08; --stage-btn-bg: var(--primary); --stage-btn-fg: #ffffff; }
+  :root:not([data-theme="light"]) { --bg: #131416; --surface: #25282d; --border: #4a4f57; --tab-sep: rgba(255, 255, 255, .55); --primary: #d42a31; --primary-light: #f2f3f5; --primary-dark: #8f1219; --primary-tint: #3a2224; --text: #eceef1; --text-secondary: #b5bac3; --alert: #ff6e62; --alert-tint: #3b2623; --on-alert: #1b0e0c; --down: #7a7f88; --good: #4fbf7a; --bar: #4a4e56; --shadow-soft: 0 1px 3px rgba(0, 0, 0, .5); --head-bg: #1e2023; --screen: #0a0b0d; --lens-ring: #6b6f77; --leds-d: none; --nb-bg: #d42a31; --nb-fg: #ffffff; --nb-bd: transparent; --nb-on-bg: #ffffff; --nb-on-fg: #d42a31; --fab-fg: #17181b; --fab-bd: 4px solid #17181b; --fab-sh: 0 0 0 3px #d42a31, 0 8px 16px rgba(0, 0, 0, .45); --lens-bg: radial-gradient(circle at 50% 50%, #f4f4f4 0 21%, #17181b 21% 31%, transparent 32%), linear-gradient(135deg, transparent 43%, #17181b 43% 57%, transparent 57%), #d42a31; --knob-bg: #4fbf7a; --knob-w: 14px; --knob-br: 3px; --knob-bd: #1a5b36; --track-bg: #121315; --track-bd: #4a4e56; --fab: #f4f5f7; --nav-on-bg: #d42a31; --nav-on-fg: #ffffff; --side-bg: #101113; --side-fg: #d7dadf; --side-dim: #8e939c; --side-line: #2a2c30; --side-on-bg: #d42a31; --side-on-fg: #ffffff; --side-add: #d42a31; --stage-bg: var(--screen); --stage-sh: none; --stage-pattern: repeating-linear-gradient(0deg, rgba(255, 255, 255, .04) 0 1px, transparent 1px 4px); --stage-plus-op: .08; --stage-btn-bg: var(--primary); --stage-btn-fg: #ffffff; }
 
   :root:not([data-theme="light"]) .nav-logout { background: var(--primary); color: #fff; }
 }
-:root[data-theme="dark"] { --bg: #131416; --surface: #25282d; --border: #4a4f57; --primary: #d42a31; --primary-light: #f2f3f5; --primary-dark: #8f1219; --primary-tint: #3a2224; --text: #eceef1; --text-secondary: #b5bac3; --alert: #ff6e62; --alert-tint: #3b2623; --on-alert: #1b0e0c; --down: #7a7f88; --good: #4fbf7a; --bar: #4a4e56; --shadow-soft: 0 1px 3px rgba(0, 0, 0, .5); --head-bg: #1e2023; --screen: #0a0b0d; --lens-ring: #6b6f77; --leds-d: none; --nb-bg: #d42a31; --nb-fg: #ffffff; --nb-bd: transparent; --nb-on-bg: #ffffff; --nb-on-fg: #d42a31; --fab-fg: #17181b; --fab-bd: 4px solid #17181b; --fab-sh: 0 0 0 3px #d42a31, 0 8px 16px rgba(0, 0, 0, .45); --lens-bg: radial-gradient(circle at 50% 50%, #f4f4f4 0 21%, #17181b 21% 31%, transparent 32%), linear-gradient(135deg, transparent 43%, #17181b 43% 57%, transparent 57%), #d42a31; --knob-bg: #4fbf7a; --knob-w: 14px; --knob-br: 3px; --knob-bd: #1a5b36; --track-bg: #121315; --track-bd: #4a4e56; --fab: #f4f5f7; --nav-on-bg: #d42a31; --nav-on-fg: #ffffff; --side-bg: #101113; --side-fg: #d7dadf; --side-dim: #8e939c; --side-line: #2a2c30; --side-on-bg: #d42a31; --side-on-fg: #ffffff; --side-add: #d42a31; --stage-bg: var(--screen); --stage-sh: none; --stage-pattern: repeating-linear-gradient(0deg, rgba(255, 255, 255, .04) 0 1px, transparent 1px 4px); --stage-plus-op: .08; --stage-btn-bg: var(--primary); --stage-btn-fg: #ffffff; }
+:root[data-theme="dark"] { --bg: #131416; --surface: #25282d; --border: #4a4f57; --tab-sep: rgba(255, 255, 255, .55); --primary: #d42a31; --primary-light: #f2f3f5; --primary-dark: #8f1219; --primary-tint: #3a2224; --text: #eceef1; --text-secondary: #b5bac3; --alert: #ff6e62; --alert-tint: #3b2623; --on-alert: #1b0e0c; --down: #7a7f88; --good: #4fbf7a; --bar: #4a4e56; --shadow-soft: 0 1px 3px rgba(0, 0, 0, .5); --head-bg: #1e2023; --screen: #0a0b0d; --lens-ring: #6b6f77; --leds-d: none; --nb-bg: #d42a31; --nb-fg: #ffffff; --nb-bd: transparent; --nb-on-bg: #ffffff; --nb-on-fg: #d42a31; --fab-fg: #17181b; --fab-bd: 4px solid #17181b; --fab-sh: 0 0 0 3px #d42a31, 0 8px 16px rgba(0, 0, 0, .45); --lens-bg: radial-gradient(circle at 50% 50%, #f4f4f4 0 21%, #17181b 21% 31%, transparent 32%), linear-gradient(135deg, transparent 43%, #17181b 43% 57%, transparent 57%), #d42a31; --knob-bg: #4fbf7a; --knob-w: 14px; --knob-br: 3px; --knob-bd: #1a5b36; --track-bg: #121315; --track-bd: #4a4e56; --fab: #f4f5f7; --nav-on-bg: #d42a31; --nav-on-fg: #ffffff; --side-bg: #101113; --side-fg: #d7dadf; --side-dim: #8e939c; --side-line: #2a2c30; --side-on-bg: #d42a31; --side-on-fg: #ffffff; --side-add: #d42a31; --stage-bg: var(--screen); --stage-sh: none; --stage-pattern: repeating-linear-gradient(0deg, rgba(255, 255, 255, .04) 0 1px, transparent 1px 4px); --stage-plus-op: .08; --stage-btn-bg: var(--primary); --stage-btn-fg: #ffffff; }
 .social-button i { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 3px; background: var(--text); color: var(--bg); font-style: normal; font-weight: 800; font-size: 13px; }
 
 .terms-row { display: flex !important; align-items: flex-start; gap: 10px; margin: 14px 0 12px !important; font-weight: 400 !important; font-size: 13px !important; line-height: 1.4; }
@@ -1232,11 +1241,11 @@ function drawNavItems() {
     }
   }
   h += '<button class="nav-item out" data-gate="out"><svg class="ic" viewBox="0 0 24 24"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/></svg><span>Salir</span></button>';
-  h += '<div class="nav-foot"><span class="nav-user">yeray@correo.com</span><button class="nav-logout" data-gate="out">Cerrar sesión</button>Revisado hace 41 min<br>Consultas a PSA hoy: 38 / 100<div class="meter"><i style="width:38%"></i></div><button class="nav-theme" data-tt="1"><span class="theme-switch"><i></i></span>Modo oscuro</button></div>';
+  h += '<div class="nav-foot"><span class="nav-user">yeray@correo.com</span><button class="nav-logout" data-gate="out">Cerrar sesión</button>Revisado hace 41 min<br>Consultas a PSA hoy: ' + psaUsed() + ' / ' + psaCap() + '<div class="meter"><i style="width:' + psaPct() + '%"></i></div><button class="nav-theme" data-tt="1"><span class="theme-switch"><i></i></span>Modo oscuro</button></div>';
   document.getElementById('nav').innerHTML = h;
 }
 function vPanelBasic() {
-  var h = '<h1 class="page-title">Cambios</h1><div class="summary"><div class="summary-count">4</div><div><b>cambios nuevos</b><small>Revisado hace 41 min · próxima en 5 h</small><div class="meter"><i style="width:38%"></i></div><small>38 de 100 consultas a PSA hoy</small></div></div><h2 style="margin-top:20px">Desde tu última visita</h2><div class="stack">';
+  var h = '<h1 class="page-title">Cambios</h1><div class="summary"><div class="summary-count">4</div><div><b>cambios nuevos</b><small>Revisado hace 41 min · próxima en 5 h</small><div class="meter"><i style="width:' + psaPct() + '%"></i></div><small>' + psaUsed() + ' de ' + psaCap() + ' consultas a PSA hoy</small></div></div><h2 style="margin-top:20px">Desde tu última visita</h2><div class="stack">';
   var i;
   var e;
   var c;
@@ -1307,9 +1316,13 @@ function openCard(c) {
   if (state.tab !== 'card') { state.from = state.tab; }
   state.tab = 'card';
 }
+function heroFollow(c) {
+  if (isFollowed(c)) { return ''; }
+  return '<button class="hero-follow" data-follow="1">' + ico('add') + 'Añadir a colección</button>';
+}
 function followBanner(c) {
   if (isFollowed(c)) { return ''; }
-  return '<div class="view-banner"><span><b>Solo la estás mirando</b><small>No está en tu colección y no recibirás avisos de ella.</small></span><button class="btn pri" data-follow="1">Añadir a colección</button></div>';
+  return '<div class="view-banner"><span><b>Solo la estás mirando</b><small>No está en tu colección y no recibirás avisos de ella.</small></span></div>';
 }
 function editorBox(c) {
   if (isFollowed(c)) { return '<div class="box grades-editor"><h2>Grados que vigilo</h2>' + editorHtml(c, false) + '</div>'; }
@@ -1325,7 +1338,7 @@ function vDetailBasic() {
   var max = Math.max.apply(null, pop);
   var gs = sortedTracked(c);
   var tot = total(c);
-  var h = '<div class="detail-bar"><button class="bk" data-back="1" aria-label="Volver">' + ico('back') + '</button><strong>' + c.name + '</strong></div><div class="detail-scroll"><div class="detail-grid"><div class="detail-side"><div class="hero"><div class="stage"><div class="slab" id="slab" ' + cs(c) + '><div class="face"><div class="slab-label"><div>' + c.set.toUpperCase() + '<br>' + c.name.toUpperCase() + '</div><div class="slab-grade"><em>PSA</em><b>9</b>MINT</div></div><div class="slab-art">' + c.name + '</div><div class="shine"></div></div><div class="face rev"><div class="slab-label"><div>CERT 12345678<br>REVERSO</div><div class="slab-grade"><em>PSA</em><b>9</b>MINT</div></div><div class="slab-art bk"></div><div class="shine"></div></div></div></div><div class="hero-actions"><button class="hero-button" data-flip="1">' + ico('turn') + 'Girar carta</button><button class="hero-button ghost" data-fsopen="1">' + ico('full') + 'Pantalla completa</button></div><div class="hint">Aquí irá la imagen oficial de PSA, si la API la da. Toca y mueve para verla por los lados.</div>';
+  var h = '<div class="detail-bar"><button class="bk" data-back="1" aria-label="Volver">' + ico('back') + '</button><strong>' + c.name + '</strong></div><div class="detail-scroll"><div class="detail-grid"><div class="detail-side"><div class="hero"><div class="stage"><div class="slab" id="slab" ' + cs(c) + '><div class="face"><div class="slab-label"><div>' + c.set.toUpperCase() + '<br>' + c.name.toUpperCase() + '</div><div class="slab-grade"><em>PSA</em><b>9</b>MINT</div></div><div class="slab-art">' + c.name + '</div><div class="shine"></div></div><div class="face rev"><div class="slab-label"><div>CERT 12345678<br>REVERSO</div><div class="slab-grade"><em>PSA</em><b>9</b>MINT</div></div><div class="slab-art bk"></div><div class="shine"></div></div></div></div><div class="hero-actions"><button class="hero-button" data-flip="1">' + ico('turn') + 'Girar carta</button><button class="hero-button ghost" data-fsopen="1">' + ico('full') + 'Pantalla completa</button></div>' + heroFollow(c) + '<div class="hint">Aquí irá la imagen oficial de PSA, si la API la da. Toca y mueve para verla por los lados.</div>';
   var i;
   var g;
   var v;
@@ -1368,7 +1381,7 @@ function vSetBasic() {
   for (i = 0; i < names.length; i++) {
     h += '<div class="line"><span>' + names[i][1] + '</span><button class="sw ' + pick(switches[i], 'on', '') + '" data-sw="' + i + '" aria-label="' + names[i][1] + '"></button></div>';
   }
-  h += '</div></div><div><h2>Revisión</h2><div class="box set"><div class="line"><span>Revisar cada</span><b>6 horas</b></div><div class="line"><span>Consultas a PSA hoy</span><b>38 / 100</b></div><div class="line"><span>Cartas que caben<small>a este ritmo y con el límite diario</small></span><b>25</b></div><div class="line"><span>Cuenta de PSA</span><b class="ok">Conectada</b></div></div></div></div>';
+  h += '</div></div><div><h2>Revisión</h2><div class="box set"><div class="line"><span>Revisar cada</span><b>6 horas</b></div><div class="line"><span>Consultas a PSA hoy</span><b>' + psaUsed() + ' / ' + psaCap() + '</b></div><div class="line"><span>Cartas que caben<small>a este ritmo y con el límite diario</small></span><b>' + (psaKeys.length * 25) + '</b></div><div class="line"><span>Claves de PSA</span><b class="ok">' + psaKeys.length + ' conectadas</b></div></div></div></div>';
   return h;
 }
 function finishFollow(c) {
@@ -1630,11 +1643,27 @@ if (q === 'set') { state.tab = 'set'; }
 var gateMark = '<span class="top-lens" style="width:56px;height:56px;border-width:4px"></span>';
 var keys = [
   { n: 'Móvil de Yeray', k: 'slb_live_••••a3f9', c: '3 oct', u: 'hace 2 h', ok: true },
-  { n: 'Script del ordenador', k: 'slb_live_••••71bc', c: '28 sep', u: 'hace 5 días', ok: true }
+  { n: 'Aplicación de Windows', k: 'slb_live_••••71bc', c: '28 sep', u: 'hace 5 días', ok: true }
 ];
+var psaKeys = [
+  { n: 'Mi cuenta de PSA', k: '••••9f2a', u: 38 },
+  { n: 'Cuenta de reserva', k: '••••41cd', u: 12 }
+];
+function psaCap() {
+  return psaKeys.length * 100;
+}
+function psaUsed() {
+  var n = 0;
+  var i;
+  for (i = 0; i < psaKeys.length; i++) { n += psaKeys[i].u; }
+  return n;
+}
+function psaPct() {
+  if (psaCap() === 0) { return 0; }
+  return Math.round(psaUsed() / psaCap() * 100);
+}
 state.gate = false;
 state.gtab = 'in';
-state.psakey = true;
 state.gstep = 'auth';
 state.gerr = '';
 function gateHtml() {
@@ -1642,7 +1671,7 @@ function gateHtml() {
   var h = '<div class="auth-screen"><div class="auth-box"><div class="auth-logo">' + gateMark + '</div>';
   if (state.gstep === 'psa') {
     h += '<h1 class="page-title">Conecta tu clave de PSA</h1><p class="subtitle">Es imprescindible para consultar las poblaciones. Es tuya: se guarda cifrada con una clave solo de tu cuenta y la puedes borrar cuando quieras.</p>';
-    h += '<ul class="auth-steps"><li>Es el token de la API pública de PSA.</li><li>Tienes 100 consultas al día con tu propia clave.</li><li>Nadie más puede usarla ni verla; solo se muestran las últimas cuatro cifras.</li></ul>';
+    h += '<ul class="auth-steps"><li>Es el token de la API pública de PSA.</li><li>Cada clave gratuita da 100 consultas al día. Después podrás añadir más claves y se suman.</li><li>Nadie más puede usarla ni verla; solo se muestran las últimas cuatro cifras.</li></ul>';
     h += '<label>Tu clave de la API de PSA</label><input class="field" id="psatoken" placeholder="Pega aquí tu token de PSA" autocomplete="off" spellcheck="false">';
     if (state.gerr !== '') { h += '<p class="auth-error">' + state.gerr + '</p>'; }
     h += '<button class="btn pri full" data-gnext="psa">Comprobar y guardar</button><p class="footnote">Sin la clave no se puede usar el servicio. Si todavía no la tienes, puedes cerrar sesión y volver cuando la tengas.</p><button class="btn full" data-gate="out" data-gnext="salir">Cerrar sesión</button></div></div>';
@@ -1669,18 +1698,19 @@ function keysHtml() {
   var h = '<div class="box set"><div class="line"><span>Cuenta<small>yeray@correo.com</small></span><button class="revoke" data-gate="out">Cerrar sesión</button></div>';
   var i;
   var k;
-  if (state.psakey) {
-    h += '<div class="key-row"><div><b>Tu clave de PSA</b><br><code>••••••••9f2a</code><small>Guardada cifrada · 38 de 100 consultas hoy</small></div><button class="revoke" data-psakey="del">Quitar</button></div>';
-  } else {
-    h += '<div class="key-row"><div><b>Tu clave de PSA</b><small>Sin clave: usas el cupo compartido, más lento</small></div><button class="revoke" style="color:var(--primary)" data-psakey="add">Añadir</button></div>';
+  h += '<h3 class="keys-title">Claves de PSA</h3><p class="keys-note">Cada clave gratuita de PSA permite 100 consultas al día. Añade las que tengas, tuyas o prestadas por un amigo, y se suman: ' + psaKeys.length + ' claves son ' + psaCap() + ' consultas al día. PSA no sabe que las juntas.</p>';
+  for (i = 0; i < psaKeys.length; i++) {
+    h += '<div class="key-row"><div><b>' + psaKeys[i].n + '</b><br><code>' + psaKeys[i].k + '</code><small>Guardada cifrada · ' + psaKeys[i].u + ' de 100 consultas hoy</small></div><button class="revoke" data-psadel="' + i + '">Quitar</button></div>';
   }
+  h += '<button class="btn full" data-sheet="psakey">+ Añadir clave de PSA</button>';
+  h += '<h3 class="keys-title">Tus aplicaciones y dispositivos</h3><p class="keys-note">Cada aplicación que se conecta a tu cuenta, como el móvil o Windows, usa su propia clave. Si pierdes un dispositivo, revoca su clave y el resto sigue funcionando.</p>';
   for (i = 0; i < keys.length; i++) {
     k = keys[i];
     h += '<div class="key-row"><div><b>' + k.n + '</b><br><code>' + k.k + '</code><small>Creada el ' + k.c + ' · usada ' + k.u + '</small></div>';
     if (k.ok) { h += '<button class="revoke" data-revoke="' + i + '">Revocar</button>'; } else { h += '<span class="revoked-text">Revocada</span>'; }
     h += '</div>';
   }
-  h += '<button class="btn full" data-sheet="newkey">+ Crear clave nueva</button><button class="btn full" data-gate="out">Cerrar sesión</button><button class="btn full danger" data-x="todo">Cerrar todas las sesiones y revocar todo</button></div>';
+  h += '<button class="btn full" data-sheet="newkey">+ Conectar un dispositivo</button><button class="btn full" data-gate="out">Cerrar sesión</button><button class="btn full danger" data-x="todo">Cerrar todas las sesiones y revocar todo</button></div>';
   return h;
 }
 function vSetWithKeys() {
@@ -1692,15 +1722,22 @@ function drawSheets() {
   if (state.sheet === 'newkey') {
     h += '<div class="backdrop" data-close="1"></div><div class="sheet"><div class="sheet-handle"></div><h3>Clave nueva</h3><p>Cópiala ahora. Después solo verás los últimos cuatro caracteres.</p><div class="keybox">slb_live_9f3a7c21e0b84d6a95c1</div><button class="btn pri full" data-close="1">Ya la he copiado</button></div>';
   }
+  if (state.sheet === 'psakey') {
+    h += '<div class="backdrop" data-close="1"></div><div class="sheet"><div class="sheet-handle"></div><h3>Añadir clave de PSA</h3><p>Pega el token de la API de PSA: puede ser de otra cuenta gratuita tuya o de un amigo que te lo preste. Se guarda cifrado.</p><input class="field" id="psaname" placeholder="Nombre, por ejemplo Cuenta de mi hermano" autocomplete="off" value="' + esc(state.pname) + '"><input class="field" id="psanew" placeholder="Pega aquí el token de PSA" autocomplete="off" spellcheck="false">';
+    if (state.perr !== '') { h += '<p class="sheet-error">' + state.perr + '</p>'; }
+    h += '<button class="btn pri full" data-psaadd="1">Comprobar y guardar</button><button class="btn full" data-close="1">Cancelar</button></div>';
+  }
+  if (state.sheet === 'psadel' && psaKeys[state.pdel]) {
+    h += '<div class="backdrop" data-close="1"></div><div class="sheet"><div class="sheet-handle"></div><h3>¿Quitar «' + psaKeys[state.pdel].n + '»?</h3><p>Se borra de nuestros servidores y no se puede recuperar. Tu capacidad bajará de ' + psaCap() + ' a ' + (psaCap() - 100) + ' consultas al día.</p><button class="btn full danger" data-psadelok="1">Quitar la clave</button><button class="btn full" data-close="1">Cancelar</button></div>';
+  }
   if (state.gate) { h += gateHtml(); }
   l.innerHTML += h;
 }
 document.addEventListener('click', function (e) {
-  var t = e.target.closest('[data-gate],[data-gtab],[data-revoke],[data-allout],[data-psakey]');
+  var t = e.target.closest('[data-gate],[data-gtab],[data-revoke],[data-allout]');
   var i;
   if (!t) { return; }
   if (t.dataset.gate) { state.gate = (t.dataset.gate === 'out'); render(false); return; }
-  if (t.dataset.psakey) { state.psakey = (t.dataset.psakey === 'add'); render(false); return; }
   if (t.dataset.gtab) { state.gtab = t.dataset.gtab; render(false); return; }
   if (t.dataset.revoke) { keys[parseInt(t.dataset.revoke, 10)].ok = false; render(false); return; }
   if (t.dataset.allout) {
@@ -1814,7 +1851,7 @@ function histHtml(c) {
   h += '</div><svg class="hchart" viewBox="0 0 300 110" preserveAspectRatio="none"><polyline fill="none" style="stroke:var(--primary)" stroke-width="2.6" points="' + pts.join(' ') + '"/><circle cx="294" cy="' + pts[pts.length - 1].split(',')[1] + '" r="4.5" style="fill:var(--alert)"/></svg>';
   h += '<p class="hcap">PSA ' + g + ': de <b>' + s[0] + '</b> a <b>' + s[s.length - 1] + '</b> en 14 días <b style="color:var(--alert)">(+' + (s[s.length - 1] - s[0]) + ')</b></p>';
   if (!isFollowed(c)) { return h + '<div class="favrow"><span>Guardado en nuestra base · 41 lecturas</span></div></div>'; }
-  h += '<div class="favrow"><span>Siguiendo desde el 12 sep · 41 lecturas guardadas</span><button data-unfollow="1">Quitar de la colección</button></div></div>';
+  h += '<div class="favrow"><span>Siguiendo desde el 12 sep · 41 lecturas guardadas</span></div><button class="btn full danger unfollow-btn" data-unfollow="1">Quitar de la colección</button></div>';
   return h;
 }
 function vDetailWithHistory() {
@@ -1847,6 +1884,9 @@ document.addEventListener('click', function (e) {
 });
 
 state.hmode = 'chg';
+state.pname = '';
+state.perr = '';
+state.pdel = 0;
 state.from = 'panel';
 state.packing = false;
 state.qs = { col: '', arch: '', name: '' };
@@ -2055,11 +2095,31 @@ document.addEventListener('change', function (e) {
   render(false);
 });
 document.addEventListener('click', function (e) {
-  var t = e.target.closest('[data-lookup],[data-lookadd],[data-look],[data-amode],[data-follow],[data-hmode],[data-lookdel],[data-lookclear],[data-unfollow],[data-unfollowok]');
+  var t = e.target.closest('[data-lookup],[data-lookadd],[data-look],[data-amode],[data-follow],[data-hmode],[data-lookdel],[data-lookclear],[data-unfollow],[data-unfollowok],[data-psaadd],[data-psadel],[data-psadelok]');
   var c;
   var val;
   var pool;
+  var nm;
   if (!t) { return; }
+  if (t.dataset.psadel) { state.pdel = parseInt(t.dataset.psadel, 10); state.sheet = 'psadel'; render(false); return; }
+  if (t.dataset.psadelok) { psaKeys.splice(state.pdel, 1); state.sheet = ''; render(false); return; }
+  if (t.dataset.psaadd) {
+    val = document.getElementById('psanew').value.trim();
+    nm = document.getElementById('psaname').value.trim();
+    if (val.length < 20) {
+      state.perr = pick(val === '', 'Pega la clave de PSA para continuar.', 'La clave parece incompleta. Revisa que la has copiado entera.');
+      state.pname = nm;
+      render(false);
+      return;
+    }
+    if (nm === '') { nm = 'Clave ' + (psaKeys.length + 1); }
+    psaKeys.push({ n: nm, k: '••••' + val.slice(-4), u: 0 });
+    state.perr = '';
+    state.pname = '';
+    state.sheet = '';
+    render(false);
+    return;
+  }
   if (t.dataset.amode) { state.amode = t.dataset.amode; state.aerr = ''; render(false); return; }
   if (t.dataset.hmode) {
     state.hmode = t.dataset.hmode;
@@ -2124,6 +2184,8 @@ document.addEventListener('input', function (e) {
     n.setSelectionRange(pos, pos);
   }
 });
+if (q === 'addkey') { state.tab = 'set'; state.sheet = 'psakey'; }
+if (q === 'keys') { state.tab = 'set'; }
 if (q === 'arch') { state.tab = 'hist'; state.hmode = 'arch'; }
 if (q === 'hist') { state.tab = 'hist'; }
 if (q === 'look') { state.tab = 'hist'; state.hmode = 'look'; }
@@ -2270,7 +2332,7 @@ var xDialogs = {
   paso2dup: function () { return dlg('<h3>Ya la tienes</h3>' + cardMini(cards[0], ' · cert 58231947') + '<p>Esta carta ya está en tu colección desde el 12 sep.</p>' + btns('Ver carta', 'Cerrar', false)); },
   paso2err: function () { return dlg('<h3>No encontramos ese cert</h3><p>Revisa el número de la etiqueta: tiene 8 o 9 dígitos. Si es correcto, puede que PSA aún no lo tenga registrado.</p><input class="field" value="5823194"><button class="btn pri full" data-xclose="1">Buscar otra vez</button>'); },
   paso2psa: function () { return dlg('<h3>PSA no responde</h3><p>No hemos podido consultar el cert ahora. Inténtalo en unos minutos; no se ha gastado ninguna consulta.</p>' + btns('Reintentar', 'Cerrar', false)); },
-  paso2cupo: function () { return dlg('<h3>Cupo diario agotado</h3><p>Has usado tus 100 consultas de hoy a PSA. Puedes añadirla mañana, o usar el cupo compartido, que es más lento.</p>' + btns('Usar el cupo compartido', 'Cerrar', false)); },
+  paso2cupo: function () { return dlg('<h3>Cupo diario agotado</h3><p>Has usado todas las consultas de hoy de tus claves de PSA. Puedes añadirla mañana o añadir otra clave de PSA para tener más.</p>' + btns('Añadir otra clave de PSA', 'Cerrar', false)); },
   seguir: function () { return dlg('<h3>¿Dejar de seguir Blaziken Holo?</h3><p>Dejarás de recibir avisos de esta carta. El historial guardado se conserva.</p>' + btns('Dejar de seguir', 'Cancelar', true)); },
   psa: function () { return dlg('<h3>¿Quitar tu clave de PSA?</h3><p>Se borra de nuestros servidores y no se puede recuperar. Sin clave no podrás consultar PSA: te la pediremos de nuevo al volver a entrar.</p>' + btns('Quitar la clave', 'Cancelar', true)); },
   clave: function () { return dlg('<h3>¿Revocar «Móvil de Yeray»?</h3><p>La clave dejará de funcionar al instante en todos los sitios donde la uses.</p>' + btns('Revocar clave', 'Cancelar', true)); },
@@ -2545,14 +2607,14 @@ document.addEventListener('click', function (e) {
     return;
   }
   if (t.dataset.gnext === 'signup') {
-    state.psakey = false;
+    psaKeys.length = 0;
     state.gstep = 'psa';
     state.gerr = '';
     render(false);
     return;
   }
   if (t.dataset.gnext === 'login') {
-    if (state.psakey) {
+    if (psaKeys.length > 0) {
       state.gate = false;
     } else {
       state.gstep = 'psa';
@@ -2568,7 +2630,7 @@ document.addEventListener('click', function (e) {
       render(false);
       return;
     }
-    state.psakey = true;
+    psaKeys.push({ n: 'Mi cuenta de PSA', k: '••••' + v.slice(-4), u: 0 });
     state.gate = false;
     state.gstep = 'auth';
     state.gerr = '';
