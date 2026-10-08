@@ -2706,7 +2706,10 @@ function drawNav() {
   ind.style.transform = 'translate(' + x + 'px,' + y + 'px)';
   navPrev = { x: x, y: y, w: w, h: h };
 }
+var lastWidth = window.innerWidth;
 window.addEventListener('resize', function () {
+  if (window.innerWidth === lastWidth) { return; }
+  lastWidth = window.innerWidth;
   navPrev = null;
   drawNav();
 });
@@ -2730,6 +2733,7 @@ function admTitle() {
   }
   return adminSecs[0][1];
 }
+var lastAdmWidth = window.innerWidth;
 function admMobile() {
   var el = document.getElementById('admm');
   var h = '';
@@ -2788,7 +2792,11 @@ document.addEventListener('click', function (e) {
   state.admMenu = false;
   render(false);
 });
-window.addEventListener('resize', admMobile);
+window.addEventListener('resize', function () {
+  if (window.innerWidth === lastAdmWidth) { return; }
+  lastAdmWidth = window.innerWidth;
+  admMobile();
+});
 window.addEventListener('load', admMobile);
 if (document.fonts && document.fonts.ready) { document.fonts.ready.then(admMobile); }
 render(false);

@@ -2556,7 +2556,10 @@ function drawNav() {
   ind.style.transform = 'translate(' + x + 'px,' + y + 'px)';
   navPrev = { x: x, y: y, w: w, h: h };
 }
+var lastWidth = window.innerWidth;
 window.addEventListener('resize', function () {
+  if (window.innerWidth === lastWidth) { return; }
+  lastWidth = window.innerWidth;
   navPrev = null;
   drawNav();
 });
