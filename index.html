@@ -269,7 +269,42 @@ tbody tr.tot td { font-weight: 800; }
 .view-banner span { flex: 1; min-width: 180px; }
 .view-banner small { display: block; font-size: .78rem; font-weight: 500; color: var(--text-secondary); }
 .sheet-error { color: var(--alert); font-weight: 700; margin: 8px 0 0; }
-.sheet .look-list { margin-top: 12px; }
+.sheet-body { display: flex; flex-direction: column; height: 300px; }
+.sheet-body .field { flex: none; }
+.sheet-body .btn { margin-top: auto; }
+.sheet-sub { flex: none; margin: 14px 0 6px; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--text-secondary); }
+.look-scroll { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; overscroll-behavior: contain; padding: 2px 2px 4px; }
+.look-scroll .change-card { flex: none; }
+.split-view.solo .detail-bar { display: flex; }
+.pack-fx { position: fixed; inset: 0; z-index: 400; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px; overflow: hidden; cursor: pointer; background: radial-gradient(circle at 50% 45%, #2a1f4f, #0a0c1c 70%); animation: pack-bg .35s ease-out; transition: background .5s; }
+.pack-fx.leaving { background: transparent; }
+.pack-fx.leaving .pack-rays, .pack-fx.leaving .pack-text { animation: none; opacity: 0; }
+.pack-rays { position: absolute; left: 50%; top: 45%; width: 170vmax; height: 170vmax; margin: -85vmax 0 0 -85vmax; background: repeating-conic-gradient(rgba(255, 214, 92, .3) 0 7deg, transparent 7deg 18deg); -webkit-mask-image: radial-gradient(circle, #000 0, transparent 55%); mask-image: radial-gradient(circle, #000 0, transparent 55%); opacity: 0; animation: pack-rays-in .8s 1.6s forwards, pack-spin 24s linear infinite; }
+.pack-flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; animation: pack-flash .6s 1.5s ease-out; }
+.pack-stage { position: relative; display: flex; justify-content: center; width: min(230px, 58vw); transition: transform .6s cubic-bezier(.5, 0, .9, .4), opacity .6s ease-in; }
+.pack-stage .stage { width: 100%; }
+.pack-slab { width: 100%; transform: rotateY(180deg); animation: pack-in .8s ease-out backwards, pack-shake .75s .9s ease-in-out, pack-flip .75s 1.65s cubic-bezier(.2, .8, .2, 1) forwards; }
+.pack-slab .face { overflow: hidden; }
+.pack-slab .face:not(.rev)::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .8) 50%, transparent 65%); transform: translateX(-130%); animation: pack-sweep .9s 2.4s ease-out forwards; }
+.pack-aura { position: absolute; left: 50%; top: 50%; width: 150%; aspect-ratio: 1; margin: -75% 0 0 -75%; background: radial-gradient(circle, rgba(255, 214, 92, .55), transparent 62%); opacity: 0; animation: pack-aura 3s .9s ease-in-out forwards; }
+.pack-sparks { position: absolute; left: 50%; top: 50%; }
+.pack-sparks i { position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 2px; background: #ffe27a; box-shadow: 0 0 10px #ffd24a; opacity: 0; transform: rotate(var(--a)) translateX(0) scale(.4); animation: pack-spark .95s 1.75s ease-out; }
+.pack-text { position: relative; text-align: center; color: #fff; animation: pack-text .6s 2.3s backwards; }
+.pack-text h2 { margin: 0 0 4px; font-family: var(--display); font-size: 1.6rem; font-weight: 400; text-shadow: 0 2px 12px rgba(0, 0, 0, .5); }
+.pack-text p { margin: 0; font-size: .9rem; color: rgba(255, 255, 255, .8); }
+.collection-card.fresh { animation: pack-fresh 1.8s ease-out 2; }
+@keyframes pack-bg { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pack-in { from { opacity: 0; transform: translateY(60px) scale(.6) rotateY(180deg); } to { opacity: 1; transform: translateY(0) scale(1) rotateY(180deg); } }
+@keyframes pack-shake { 0%, 100% { transform: rotateY(180deg) rotateZ(0); } 15% { transform: rotateY(180deg) rotateZ(-5deg); } 30% { transform: rotateY(180deg) rotateZ(5deg); } 45% { transform: rotateY(180deg) rotateZ(-4deg); } 60% { transform: rotateY(180deg) rotateZ(4deg); } 80% { transform: rotateY(180deg) rotateZ(-2deg); } }
+@keyframes pack-flip { 0% { transform: rotateY(180deg) scale(1); } 55% { transform: rotateY(90deg) scale(1.2); } 100% { transform: rotateY(0) scale(1.08); } }
+@keyframes pack-flash { 0% { opacity: 0; } 25% { opacity: .95; } 100% { opacity: 0; } }
+@keyframes pack-rays-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pack-spin { to { transform: rotate(360deg); } }
+@keyframes pack-aura { 0% { opacity: 0; transform: scale(.5); } 40% { opacity: .9; transform: scale(1.1); } 100% { opacity: .55; transform: scale(1); } }
+@keyframes pack-sweep { to { transform: translateX(130%); } }
+@keyframes pack-spark { 0% { opacity: 1; transform: rotate(var(--a)) translateX(0) scale(.4); } 100% { opacity: 0; transform: rotate(var(--a)) translateX(var(--d)) scale(1.1); } }
+@keyframes pack-text { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pack-fresh { 0%, 100% { box-shadow: 0 0 0 0 transparent; } 50% { box-shadow: 0 0 0 4px var(--primary); } }
 
 .sheet .field { width: 100%; height: 52px; border: 1px solid var(--border); border-radius: 6px; padding: 0 14px; font: inherit; font-size: 1.1rem; margin-top: 10px; background: var(--bg); }
 
@@ -1247,17 +1282,32 @@ function editorHtml(c, withDone) {
   if (withDone) { h += '<button class="btn pri full" data-close="1">Listo</button>'; }
   return h;
 }
+function vCard() {
+  return '<div class="split-view solo" data-open="1"><div class="detail-column">' + vDetail() + '</div></div>';
+}
+function openCard(c) {
+  state.aerr = '';
+  state.card = c.id;
+  state.ver = -1;
+  state.open = 1;
+  if (isFollowed(c)) {
+    state.tab = 'col';
+    return;
+  }
+  if (state.tab !== 'card') { state.from = state.tab; }
+  state.tab = 'card';
+}
 function followBanner(c) {
   if (isFollowed(c)) { return ''; }
-  return '<div class="view-banner"><span><b>Solo la estás mirando</b><small>No está en tu seguimiento y no recibirás avisos de ella.</small></span><button class="btn pri" data-follow="1">Añadir a seguimiento</button></div>';
+  return '<div class="view-banner"><span><b>Solo la estás mirando</b><small>No está en tu colección y no recibirás avisos de ella.</small></span><button class="btn pri" data-follow="1">Añadir a colección</button></div>';
 }
 function editorBox(c) {
   if (isFollowed(c)) { return '<div class="box grades-editor"><h2>Grados que vigilo</h2>' + editorHtml(c, false) + '</div>'; }
-  return '<div class="box grades-editor"><h2>Seguimiento</h2><p class="mini">Añádela para vigilar sus grados y recibir avisos cuando suba el número de cartas.</p><button class="btn pri full" data-follow="1">Añadir a seguimiento</button></div>';
+  return '<div class="box grades-editor"><h2>Colección</h2><p class="mini">Añádela para vigilar sus grados y recibir avisos cuando suba el número de cartas.</p><button class="btn pri full" data-follow="1">Añadir a colección</button></div>';
 }
 function actionsHtml(c) {
   if (isFollowed(c)) { return '<div class="detail-actions"><button class="detail-action" data-sheet="grades"><span><small>Grados que vigilo</small><b>PSA ' + rangeText(c.tracked) + '</b></span><span>Cambiar</span></button></div>'; }
-  return '<div class="detail-actions"><button class="detail-action" data-follow="1"><span><small>Seguimiento</small><b>Sin seguir</b></span><span>Añadir</span></button></div>';
+  return '<div class="detail-actions"><button class="detail-action" data-follow="1"><span><small>Colección</small><b>No está</b></span><span>Añadir a colección</span></button></div>';
 }
 function vDetailBasic() {
   var c = byId(state.card);
@@ -1311,27 +1361,112 @@ function vSetBasic() {
   h += '</div></div><div><h2>Revisión</h2><div class="box set"><div class="line"><span>Revisar cada</span><b>6 horas</b></div><div class="line"><span>Consultas a PSA hoy</span><b>38 / 100</b></div><div class="line"><span>Cartas que caben<small>a este ritmo y con el límite diario</small></span><b>25</b></div><div class="line"><span>Cuenta de PSA</span><b class="ok">Conectada</b></div></div></div></div>';
   return h;
 }
+function finishFollow(c) {
+  var el;
+  viewed.splice(viewed.indexOf(c), 1);
+  c.tracked = [9, 10];
+  c.delta = {};
+  cards.push(c);
+  state.packing = false;
+  state.filter = 'all';
+  state.tab = 'col';
+  state.card = c.id;
+  state.ver = -1;
+  state.open = 0;
+  state.qs.col = '';
+  render(true);
+  el = document.querySelector('.collection-card[data-card="' + c.id + '"]');
+  if (el) {
+    el.classList.add('fresh');
+    el.scrollIntoView({ block: 'center' });
+  }
+}
+function playPack(c) {
+  var fx = document.createElement('div');
+  var sparks = '';
+  var timers = [];
+  var done = false;
+  var i;
+  state.packing = true;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    finishFollow(c);
+    return;
+  }
+  for (i = 0; i < 16; i++) { sparks += '<i style="--a:' + (i * 22.5) + 'deg;--d:' + (110 + (i % 3) * 45) + 'px"></i>'; }
+  fx.className = 'pack-fx';
+  fx.innerHTML = '<div class="pack-rays"></div><div class="pack-flash"></div><div class="pack-stage"><div class="pack-aura"></div><div class="stage"><div class="slab pack-slab" ' + cs(c) + '>' + slabFaces(c) + '</div></div><div class="pack-sparks">' + sparks + '</div></div><div class="pack-text"><h2>¡Añadida a tu colección!</h2><p>' + c.name + ' · ' + c.set + '</p></div>';
+  document.body.appendChild(fx);
+  function leave() {
+    var st = fx.querySelector('.pack-stage');
+    var target = document.querySelector('.nav-item[data-t="col"]');
+    var a = st.getBoundingClientRect();
+    var b;
+    var dx = 0;
+    var dy = window.innerHeight;
+    if (done) { return; }
+    done = true;
+    if (target) {
+      b = target.getBoundingClientRect();
+      dx = b.left + b.width / 2 - (a.left + a.width / 2);
+      dy = b.top + b.height / 2 - (a.top + a.height / 2);
+    }
+    fx.classList.add('leaving');
+    st.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(.1)';
+    st.style.opacity = '0';
+    timers.push(setTimeout(function () {
+      fx.remove();
+      finishFollow(c);
+    }, 650));
+  }
+  fx.addEventListener('click', function () {
+    timers.forEach(clearTimeout);
+    leave();
+  });
+  timers.push(setTimeout(leave, 4300));
+}
+function recentCards() {
+  var out = [];
+  var i;
+  var c;
+  for (i = 0; i < lookups.length && out.length < 4; i++) {
+    c = byId(lookups[i].c);
+    if (out.indexOf(c) < 0) { out.push(c); }
+  }
+  return out;
+}
+function nameRows(list) {
+  var h = '';
+  var i;
+  for (i = 0; i < list.length; i++) {
+    h += '<button class="change-card" data-lookadd="' + list[i].id + '"><div class="thumb" ' + cs(list[i]) + '><i></i></div><div><div class="n">' + list[i].name + '</div><div class="s">' + list[i].set + '</div></div><div class="d"><span>' + pick(isFollowed(list[i]), 'En tu colección', 'Ver') + '</span></div></button>';
+  }
+  return h;
+}
 function addSheetHtml() {
   var byCert = state.amode === 'cert';
+  var typing = state.qs.name.trim() !== '';
   var h = '<div class="backdrop" data-close="1"></div><div class="sheet"><div class="sheet-handle"></div><h3>Buscar carta</h3><p>Mírala sin añadirla: solo queda en tu historial de consultas.</p>';
+  var list = [];
+  var all;
   var i;
-  var list;
-  var shown = 0;
-  h += '<div class="tab-switch"><button data-amode="cert" class="' + pick(byCert, 'on', '') + '">Por código</button><button data-amode="name" class="' + pick(byCert, '', 'on') + '">Por nombre</button></div>';
+  h += '<div class="tab-switch"><button data-amode="cert" class="' + pick(byCert, 'on', '') + '">Por código</button><button data-amode="name" class="' + pick(byCert, '', 'on') + '">Por nombre</button></div><div class="sheet-body">';
   if (byCert) {
     h += '<input class="field" id="certinp" inputmode="numeric" placeholder="Nº de cert (8 o 9 dígitos)" autocomplete="off">';
     if (state.aerr !== '') { h += '<p class="sheet-error">' + state.aerr + '</p>'; }
-    return h + '<p class="mini">Para probar: 62158304, 59417720 o 60873315.</p><button class="btn pri full" data-lookup="1">Consultar</button></div>';
+    return h + '<p class="mini">Para probar: 62158304, 59417720 o 60873315.</p><button class="btn pri full" data-lookup="1">Consultar</button></div></div>';
   }
-  list = cards.concat(viewed);
-  h += '<input class="field" id="nameq" data-q="name" placeholder="Nombre de la carta o del set" autocomplete="off" value="' + esc(state.qs.name) + '"><div class="look-list">';
-  for (i = 0; i < list.length; i++) {
-    if (!matchCard(list[i], state.qs.name)) { continue; }
-    shown++;
-    h += '<button class="change-card" data-lookadd="' + list[i].id + '"><div class="thumb" ' + cs(list[i]) + '><i></i></div><div><div class="n">' + list[i].name + '</div><div class="s">' + list[i].set + '</div></div><div class="d"><span>' + pick(isFollowed(list[i]), 'En tu colección', 'Ver') + '</span></div></button>';
+  h += '<input class="field" id="nameq" data-q="name" placeholder="Nombre de la carta o del set" autocomplete="off" value="' + esc(state.qs.name) + '">';
+  if (typing) {
+    all = cards.concat(viewed);
+    for (i = 0; i < all.length; i++) {
+      if (matchCard(all[i], state.qs.name)) { list.push(all[i]); }
+    }
+  } else {
+    list = recentCards();
   }
-  if (shown === 0) { h += '<p class="footnote">Ninguna carta coincide con esa búsqueda.</p>'; }
-  return h + '</div></div>';
+  h += '<div class="sheet-sub">' + pick(typing, 'Coincidencias', 'Últimas búsquedas') + '</div><div class="look-scroll">' + nameRows(list);
+  if (list.length === 0) { h += '<p class="footnote">' + pick(typing, 'Ninguna carta coincide con esa búsqueda.', 'Aquí aparecerán las últimas cartas que busques.') + '</p>'; }
+  return h + '</div></div></div>';
 }
 function drawLayer() {
   var h = '';
@@ -1393,6 +1528,7 @@ function renderPage(top) {
   if (old) { keep = old.scrollTop; }
   if (state.tab === 'panel') { m.innerHTML = vPanel(); }
   if (state.tab === 'col') { m.innerHTML = vCol(); }
+  if (state.tab === 'card') { m.innerHTML = vCard(); }
   if (state.tab === 'price') { m.innerHTML = vPrice(); }
   if (state.tab === 'hist') { m.innerHTML = vHist(); }
   if (state.tab === 'set') { m.innerHTML = vSet(); }
@@ -1406,7 +1542,7 @@ function renderPage(top) {
   ds = document.querySelector('.detail-scroll');
   if (ds && !top) { ds.scrollTop = keep; }
   if (top) { window.scrollTo(0, 0); }
-  document.body.classList.toggle('lock', (((state.open === 1 && state.tab === 'col') || (state.tab === 'hist' && state.hopen === 1)) && window.innerWidth < 720) || state.sheet !== '');
+  document.body.classList.toggle('lock', (((state.open === 1 && (state.tab === 'col' || state.tab === 'card')) || (state.tab === 'hist' && state.hopen === 1)) && window.innerWidth < 720) || state.sheet !== '');
 }
 function setPreset(c, p) {
   var parts;
@@ -1447,7 +1583,12 @@ document.addEventListener('click', function (e) {
   if (t.dataset.sheet) { state.sheet = t.dataset.sheet; render(false); return; }
   if (t.dataset.f) { state.filter = t.dataset.f; render(false); return; }
   if (t.dataset.t) { state.tab = t.dataset.t; state.open = 0; state.hopen = 0; render(true); return; }
-  if (t.dataset.back) { state.open = 0; render(true); return; }
+  if (t.dataset.back) {
+    state.open = 0;
+    if (state.tab === 'card') { state.tab = state.from; }
+    render(true);
+    return;
+  }
   if (t.dataset.sw) { k = parseInt(t.dataset.sw, 10); switches[k] = !switches[k]; render(false); return; }
   if (t.dataset.card) { state.card = t.dataset.card; state.ver = -1; state.open = 1; state.tab = 'col'; render(true); return; }
   if (t.dataset.ver) { state.ver = parseInt(t.dataset.ver, 10); render(false); return; }
@@ -1693,6 +1834,8 @@ document.addEventListener('click', function (e) {
 });
 
 state.hmode = 'chg';
+state.from = 'panel';
+state.packing = false;
 state.qs = { col: '', arch: '', name: '' };
 state.amode = 'cert';
 state.aerr = '';
@@ -1915,14 +2058,7 @@ document.addEventListener('click', function (e) {
   if (t.dataset.lookclear) { lookups.length = 0; render(false); return; }
   if (t.dataset.follow) {
     c = byId(state.card);
-    if (!isFollowed(c)) {
-      viewed.splice(viewed.indexOf(c), 1);
-      c.tracked = [9, 10];
-      c.delta = {};
-      cards.push(c);
-    }
-    state.filter = 'all';
-    render(false);
+    if (!isFollowed(c) && !state.packing) { playPack(c); }
     return;
   }
   if (t.dataset.lookup) {
@@ -1941,11 +2077,7 @@ document.addEventListener('click', function (e) {
     noteLookup(c, c.cert);
   }
   if (t.dataset.look) { c = byId(t.dataset.look); }
-  state.aerr = '';
-  state.card = c.id;
-  state.ver = -1;
-  state.open = 1;
-  state.tab = 'col';
+  openCard(c);
   state.sheet = '';
   render(true);
 });
@@ -1966,7 +2098,8 @@ document.addEventListener('input', function (e) {
 if (q === 'arch') { state.tab = 'hist'; state.hmode = 'arch'; }
 if (q === 'hist') { state.tab = 'hist'; }
 if (q === 'look') { state.tab = 'hist'; state.hmode = 'look'; }
-if (q === 'viewcard') { state.tab = 'col'; state.open = 1; state.card = 'ven'; }
+if (q === 'viewcard') { state.tab = 'card'; state.from = 'col'; state.open = 1; state.card = 'ven'; }
+if (q === 'pack') { state.tab = 'card'; state.from = 'col'; state.open = 1; state.card = 'ven'; setTimeout(function () { playPack(byId('ven')); }, 400); }
 if (q === 'addname') { state.tab = 'col'; state.sheet = 'add'; state.amode = 'name'; }
 if (q === 'histdet') { state.tab = 'hist'; state.hopen = 1; }
 
