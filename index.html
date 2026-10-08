@@ -277,6 +277,8 @@ tbody tr.tot td { font-weight: 800; }
 @keyframes follow-pulse { 0%, 100% { box-shadow: 0 4px 14px rgba(0, 0, 0, .3), 0 0 0 0 rgba(255, 255, 255, .55); } 50% { box-shadow: 0 4px 14px rgba(0, 0, 0, .3), 0 0 0 9px rgba(255, 255, 255, 0); } }
 @media (prefers-reduced-motion: reduce) { .hero-follow { animation: none; } }
 .unfollow-btn { margin-top: 12px; height: 52px; font-size: 1rem; }
+input, select, textarea { color: var(--text); }
+input::placeholder, textarea::placeholder { color: var(--text-secondary); opacity: 1; }
 .sheet-error { color: var(--alert); font-weight: 700; margin: 8px 0 0; }
 .sheet-body { display: flex; flex-direction: column; height: 300px; }
 .sheet-body .field { flex: none; }
@@ -992,8 +994,8 @@ var events = [
   { c: 'chz', g: 2, from: 9, to: 10, v: 'Inglés', t: 'ayer' },
   { c: 'lug', g: 3, from: 3, to: 4, v: 'Alemán', t: 'ayer' }
 ];
-var names = [['Móvil', 'Aviso en este móvil'], ['Ordenador', 'Aviso en el ordenador'], ['Telegram', 'Respaldo por Telegram'], ['Solo mis grados', 'Avisar solo de los grados vigilados'], ['Resumen', 'Resumen diario a las 20:00']];
-var switches = [true, true, false, true, false];
+var names = [['Móvil', 'Aviso en este móvil'], ['Ordenador', 'Aviso en el ordenador'], ['Solo mis grados', 'Avisar solo de los grados vigilados'], ['Resumen', 'Resumen diario a las 20:00']];
+var switches = [true, true, true, false];
 var state = { tab: 'panel', card: 'blz', ver: -1, open: 0, sheet: '', filter: 'all' };
 var icons = {
   panel: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
